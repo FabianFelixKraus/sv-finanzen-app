@@ -1,0 +1,15 @@
+{
+  "account": "Konto (Commerzbank, Kasse bar)",
+  "addNewTransaction": "Neue Transaktion hinzufügen",
+  "amount": "Betrag",
+  "date": "Datum",
+  "description": "Beschreibung/Vorgang",
+  "expense": "Ausgabe",
+  "expense/income": "Einnahme (E) / Ausgabe (A)",
+  "income": "Einnahme",
+  "location": "Sparte (Waschbar, Gemeinschaftsraum)",
+  "statementOfAccountId": "Kontoauszugsnummer",
+  "taxClass": "Steuerart (Umsatzsteuer etc.)",
+  "taxGroup": "Steuerkategorie (WBA etc.)",
+  "taxRate": "Steuersatz"
+}

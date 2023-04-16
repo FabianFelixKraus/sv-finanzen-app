@@ -1,0 +1,15 @@
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+}
+
+.hr {
+  height:2px;
+  width: 80%;
+  background-color: #ccc;
+  margin: 20px auto;
+}
