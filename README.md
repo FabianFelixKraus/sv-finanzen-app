@@ -1,6 +1,6 @@
 # sv-finanzen
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is a simple web application to easily manage new transactions into the Kassenbuch. It is based on [Vue 3](https://v3.vuejs.org/) and [Vite](https://vitejs.dev/).
 
 ## Recommended IDE Setup
 
