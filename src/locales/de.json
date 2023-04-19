@@ -13,5 +13,7 @@
   "taxGroup": "Steuerkategorie (WBA etc.)",
   "taxRate": "Steuersatz",
   "submitNewTransaction": "Hinzufügen",
-  "showAllTransactions": "Alle Transaktionen"
+  "showAllTransactions": "Alle Transaktionen",
+  "germanFlagTitle": "Sprache auf Englisch wechseln",
+  "americanFlagTitle": "Sprache auf Deutsch wechseln"
 }

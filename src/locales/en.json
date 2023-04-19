@@ -1,3 +1,19 @@
 {
-  "date": "Date"
+  "account": "Account (Commerzbank, Kasse bar)",
+  "addNewTransaction": "Add new transaction",
+  "amount": "Amount",
+  "date": "Date",
+  "description": "Description/Process",
+  "expense": "Expense",
+  "expense/income": "Income (E) / Expense (A)",
+  "income": "Expense",
+  "location": "Location (Waschbar, Gemeinschaftsraum)",
+  "statementOfAccountId": "Statement of Account Number",
+  "taxClass": "Class of tax (Umsatzsteuer etc.)",
+  "taxGroup": "Category for tax (WBA etc.)",
+  "taxRate": "Tax-rate",
+  "submitNewTransaction": "Add",
+  "showAllTransactions": "All transactions",
+  "germanFlagTitle": "Change Language to English",
+  "americanFlagTitle": "Change language to German"
 }

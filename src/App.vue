@@ -1,13 +1,16 @@
 <script setup>
 import AddEntryForm from "@/components/AddEntryForm.vue";
 import ShowAllEntries from  "@/components/ShowAllEntries.vue";
+import Header from "@/components/Header.vue";
 </script>
 
 <template>
   <div class="container">
     <div class="row">
+      <Header />
       <div class="col-12">
-        <h1 style="margin-top: 1em">{{$t("addNewTransaction")}}</h1>
+        <div class="hr"></div>
+        <SelectTemplate />
         <div class="hr"></div>
         <AddEntryForm  :allTransactions="allTransactions" class="center-content"/>
         <div class="hr"></div>
@@ -19,6 +22,7 @@ import ShowAllEntries from  "@/components/ShowAllEntries.vue";
 
 <script>
 export default {
+  components: ["AddEntryForm","ShowAllEntries","SelectTemplate","Header"],
   data () {
     return {
       allTransactions: [{
@@ -54,3 +58,5 @@ export default {
   },
 }
 </script>
+<!--TODO-->
+<!--Bei welchen Tags lohnt sich ein :title hinzuzufügen, sodass bei Hovern eine Erklärung erscheint?-->
