@@ -6,7 +6,7 @@ import "/node_modules/flag-icons/css/flag-icons.min.css";
     <h1 style="margin-top: 1em">{{$t("addNewTransaction")}}</h1>
   </div>
   <div class="col-2 center-content" @click="toggleLanguage">
-    <span class="fi" :class="['fi-' + flagIconClass, 'image-scaling']" :title="selectedLanguage"></span>
+    <span class="fi" :class="['fi-' + flagIconClass, 'image-scaling']" :title="explanationText"></span>
   </div>
 </template>
 
@@ -27,9 +27,16 @@ export default {
   computed: {
     flagIconClass() {
       if (this.selectedLanguage === "de") {
-        return "de";
-      } else {
         return "us";
+      } else {
+        return "de";
+      }
+    },
+    explanationText() {
+      if (this.selectedLanguage === "de") {
+        return this.$t("germanFlagTitle");
+      } else {
+        return this.$t("americanFlagTitle");
       }
     }
   }
