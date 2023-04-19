@@ -1,25 +1,56 @@
 <script setup>
 import AddEntryForm from "@/components/AddEntryForm.vue";
+import ShowAllEntries from  "@/components/ShowAllEntries.vue";
 </script>
 
 <template>
-  <h1>{{$t("addNewTransaction")}}</h1>
-  <div class="hr"></div>
-  <AddEntryForm :msg="message" @handleInput="receiveNewInput"/>
-  <div class="hr"></div>
-</template>
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h1 style="margin-top: 1em">{{$t("addNewTransaction")}}</h1>
+        <div class="hr"></div>
+        <AddEntryForm  :allTransactions="allTransactions" class="center-content"/>
+        <div class="hr"></div>
+        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getAllNewTransactions="handleNewTransactions" />
+      </div>
+    </div>
+  </div>
+ </template>
 
 <script>
 export default {
   data () {
     return {
-      message: "Start Message",
+      allTransactions: [{
+        "date": "2023-04-16T12:34:56.789Z",
+        "description": "Vorgang 1",
+        "statementOfAccountId": 1,
+        "isExpense": false,
+        "location": "Gemeinschaftsraum",
+        "amount":  32.33,
+        "account": "Commerzbank",
+        "taxClass": "Mehrwertsteuer (voll)",
+        "taxGroup": "GRA",
+        "taxRate": 19
+      },
+        {
+          "date": "2023-04-10T12:34:56.789Z",
+          "description": "Vorgang 2",
+          "statementOfAccountId": 2,
+          "isExpense": true,
+          "location": "Waschbar",
+          "amount": 0,
+          "account": "Kasse, bar",
+          "taxClass": "Umsatzsteuer",
+          "taxGroup": "WBE",
+          "taxRate": 19
+        }]
     }
   },
   methods: {
-    receiveNewInput(newInput) {
-      this.message=newInput;
+    handleNewTransactions (newTransaction) {
+      this.allTransactions = newTransaction;
     }
-  }
+  },
 }
 </script>

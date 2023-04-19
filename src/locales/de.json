@@ -11,5 +11,7 @@
   "statementOfAccountId": "Kontoauszugsnummer",
   "taxClass": "Steuerart (Umsatzsteuer etc.)",
   "taxGroup": "Steuerkategorie (WBA etc.)",
-  "taxRate": "Steuersatz"
+  "taxRate": "Steuersatz",
+  "submitNewTransaction": "Hinzufügen",
+  "showAllTransactions": "Alle Transaktionen"
 }
