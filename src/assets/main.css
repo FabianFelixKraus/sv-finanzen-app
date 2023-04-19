@@ -2,14 +2,29 @@ body {
   font-family: 'Roboto', sans-serif;
 }
 
-h1 {
+h1, .center-content {
   display: flex;
   justify-content: center;
 }
 
 .hr {
   height:2px;
-  width: 80%;
+  width: 100%;
   background-color: #ccc;
   margin: 20px auto;
+}
+
+/* Default styles for the container */
+.container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+/* Media query for small screens */
+@media (max-width: 767px) {
+  /* Override container styles for small screens */
+  .container {
+    margin-left: 0;
+    margin-right: 0;
+  }
 }

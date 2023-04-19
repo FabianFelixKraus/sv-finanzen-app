@@ -1,15 +1,26 @@
 {
   "account": "Konto (Commerzbank, Kasse bar)",
+  "accountMaintenanceFee": "Kontoführungsgebühren",
   "addNewTransaction": "Neue Transaktion hinzufügen",
+  "americanFlagTitle": "Sprache auf Deutsch wechseln",
   "amount": "Betrag",
+  "card4Vend": "Card4Vend",
+  "cleaningService": "3B Dienstleistungen",
   "date": "Datum",
   "description": "Beschreibung/Vorgang",
+  "electricityBill": "Naturstrom Handel",
+  "empty": "Leer",
   "expense": "Ausgabe",
   "expense/income": "Einnahme (E) / Ausgabe (A)",
+  "germanFlagTitle": "Sprache auf Englisch wechseln",
   "income": "Einnahme",
+  "invoice": "Rechnung",
   "location": "Sparte (Waschbar, Gemeinschaftsraum)",
+  "showAllTransactions": "Alle Transaktionen",
   "statementOfAccountId": "Kontoauszugsnummer",
+  "submitNewTransaction": "Hinzufügen",
   "taxClass": "Steuerart (Umsatzsteuer etc.)",
   "taxGroup": "Steuerkategorie (WBA etc.)",
-  "taxRate": "Steuersatz"
+  "taxRate": "Steuersatz",
+  "telekom": "Telekom"
 }
