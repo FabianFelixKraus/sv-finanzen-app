@@ -2,6 +2,7 @@
 import AddEntryForm from "@/components/AddEntryForm.vue";
 import ShowAllEntries from  "@/components/ShowAllEntries.vue";
 import Header from "@/components/Header.vue";
+import SelectTemplate from "@/components/SelectTemplate.vue"
 </script>
 
 <template>
@@ -37,18 +38,18 @@ export default {
         "taxGroup": "GRA",
         "taxRate": 19
       },
-        {
-          "date": "2023-04-10T12:34:56.789Z",
-          "description": "Vorgang 2",
-          "statementOfAccountId": 2,
-          "isExpense": true,
-          "location": "Waschbar",
-          "amount": 0,
-          "account": "Kasse, bar",
-          "taxClass": "Umsatzsteuer",
-          "taxGroup": "WBE",
-          "taxRate": 19
-        }]
+      {
+        "date": "2023-04-10T12:34:56.789Z",
+        "description": "Vorgang 2",
+        "statementOfAccountId": 2,
+        "isExpense": true,
+        "location": "Waschbar",
+        "amount": 0,
+        "account": "Kasse, bar",
+        "taxClass": "Umsatzsteuer",
+        "taxGroup": "WBE",
+        "taxRate": 19
+      }]
     }
   },
   methods: {
@@ -60,3 +61,5 @@ export default {
 </script>
 <!--TODO-->
 <!--Bei welchen Tags lohnt sich ein :title hinzuzufügen, sodass bei Hovern eine Erklärung erscheint?-->
+<!--Form Validation Einfügen-->
+<!--Template Kaution-->
