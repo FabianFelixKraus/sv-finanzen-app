@@ -77,7 +77,6 @@ export default {
 </script>
 <!--TODO-->
 <!--Click auf Hinzufügen macht sprung des cursers in Kontoauszugsnummer feld-->
-<!--Abspeichern einer Transaktion mittels strg + enter-->
 <!--Shortcuts einbauen für templates-->
 <!--Form Validation Einfügen-->
 <!--Template Kaution-->

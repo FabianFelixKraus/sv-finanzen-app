@@ -1,12 +1,12 @@
 <template>
-  <form ref="addTransactionForm" id="addTransactionForm" @submit.prevent>
+  <form ref="addTransactionForm" id="addTransactionForm" @submit.prevent @keydown.ctrl.enter="handleSubmit">
     <div class="container">
       <div class="row">
         <div class="col-4">
           <div class="form-group">
             <label for="inputStatementOfAccountId">{{ $t("statementOfAccountId") }}</label>
             <input id="inputStatementOfAccountId" class="form-control" type="number" v-model="inputData.statementOfAccountId"
-                   @input="addStatementOfAccountId" required>
+                   @input="addStatementOfAccountId" ref="startOfForm" required>
           </div>
         </div>
         <div class="col-4">
@@ -164,6 +164,7 @@ export default {
       } else {
         alert(this.$t("formValidationErrorMessage"))
       }
+      this.$refs.startOfForm.focus();
     }
   }
 };
