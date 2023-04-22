@@ -11,9 +11,9 @@ import SelectTemplate from "@/components/SelectTemplate.vue"
       <Header />
       <div class="col-12">
         <div class="hr"></div>
-        <SelectTemplate />
+        <SelectTemplate @changeCurrentInput="changeCurrentInputByGivenTemplate" />
         <div class="hr"></div>
-        <AddEntryForm  :allTransactions="allTransactions" class="center-content"/>
+        <AddEntryForm :allTransactions="allTransactions" :currentInput="currentInput" class="center-content"/>
         <div class="hr"></div>
         <ShowAllEntries class="center-content" :allEntries="allTransactions" @getAllNewTransactions="handleNewTransactions" />
       </div>
@@ -26,6 +26,18 @@ export default {
   components: ["AddEntryForm","ShowAllEntries","SelectTemplate","Header"],
   data () {
     return {
+      currentInput: {
+        "date": "2023-04-16T12:34:56.789Z",
+        "description": "Vorgang 1",
+        "statementOfAccountId": 1,
+        "isExpense": false,
+        "location": "Gemeinschaftsraum",
+        "amount":  32.33,
+        "account": "Commerzbank",
+        "taxClass": "Mehrwertsteuer (voll)",
+        "taxGroup": "GRA",
+        "taxRate": 19
+      },
       allTransactions: [{
         "date": "2023-04-16T12:34:56.789Z",
         "description": "Vorgang 1",
@@ -53,13 +65,19 @@ export default {
     }
   },
   methods: {
-    handleNewTransactions (newTransaction) {
-      this.allTransactions = newTransaction;
+    handleNewTransactions (newAllTransactions) {
+      this.allTransactions = newAllTransactions;
+    },
+    changeCurrentInputByGivenTemplate(newCurrentInput) {
+      console.log("newCurrentInput", newCurrentInput);
+      this.currentInput = newCurrentInput;
     }
   },
 }
 </script>
 <!--TODO-->
-<!--Bei welchen Tags lohnt sich ein :title hinzuzufügen, sodass bei Hovern eine Erklärung erscheint?-->
+<!--Click auf Hinzufügen macht sprung des cursers in Kontoauszugsnummer feld-->
+<!--Abspeichern einer Transaktion mittels strg + enter-->
+<!--Shortcuts einbauen für templates-->
 <!--Form Validation Einfügen-->
 <!--Template Kaution-->

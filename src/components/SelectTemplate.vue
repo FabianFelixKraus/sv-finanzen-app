@@ -1,6 +1,13 @@
 <template>
-  <span class="flex" key="index" v-for="(name, index) in templateNames">
-    <button type="button" class="btn btn-outline-primary template-button" @click="selectTemplate(name)">{{ $t(name) }}</button>
+  <span class="flex" key="index" v-for="(name, index) in templateNames" :title="$t(name) + ' ' + $t('selectTemplate')">
+<!--    :class="templateClass(name)"-->
+    <button
+        type="button"
+        class="btn btn-outline-primary template-button"
+        @click="selectTemplate(name)"
+    >
+      {{ $t(name) }}
+    </button>
   </span>
 </template>
 <script>
@@ -9,99 +16,112 @@
     data () {
       return {
         selectedTemplate: undefined,
-        templateNames: ["card4Vend", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "empty"],
+        templateNames: ["card4Vend", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "deposit","empty"],
         templates: {
           "card4Vend": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Card4Vent GmbH",
+            "statementOfAccountId": null,
             "isExpense": false,
-            "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "location": "Waschbar",
+            "amount":  null,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
-            "taxGroup": "GRA",
+            "taxClass": "Umsatzsteuer",
+            "taxGroup": "WBE",
             "taxRate": 19
           },
           "invoice": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "",
+            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "amount":  null,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
+            "taxClass": "MwSt. voll",
             "taxGroup": "GRA",
             "taxRate": 19
           },
           "telekom": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Telekom",
+            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "amount":  34.94,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
+            "taxClass": "MwSt. voll",
             "taxGroup": "GRA",
             "taxRate": 19
           },
           "cleaningService": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "3B Dienstleistungen",
+            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
             "amount":  32.33,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
+            "taxClass": "MwSt. voll",
             "taxGroup": "GRA",
             "taxRate": 19
           },
           "electricityBill": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Naturstromhandel GmbH",
+            "statementOfAccountId": null,
             "isExpense": true,
-            "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "location": "Waschbar",
+            "amount":  null,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
-            "taxGroup": "GRA",
+            "taxClass": "MwSt. voll",
+            "taxGroup": "WBA",
             "taxRate": 19
           },
           "accountMaintenanceFee": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Kontoführungsgebühren",
+            "statementOfAccountId": null,
             "isExpense": true,
-            "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "location": "Sonstiges",
+            "amount":  null,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
-            "taxGroup": "GRA",
-            "taxRate": 19
+            "taxClass": "MwSt. voll",
+            "taxGroup": "KtA",
+            "taxRate": 0
           },
-          "empty": {
-            "date": "2023-04-16T12:34:56.789Z",
-            "description": "Vorgang 1",
-            "statementOfAccountId": 1,
+          "deposit": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Kaution ",
+            "statementOfAccountId": null,
             "isExpense": false,
             "location": "Gemeinschaftsraum",
-            "amount":  32.33,
+            "amount":  100.00,
             "account": "Commerzbank",
-            "taxClass": "Mehrwertsteuer (voll)",
-            "taxGroup": "GRA",
-            "taxRate": 19
+            "taxClass": "keine",
+            "taxGroup": "??",
+            "taxRate": 0
+          },
+          "empty": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "",
+            "statementOfAccountId": null,
+            "isExpense": true,
+            "location": "",
+            "amount":  null,
+            "account": "Commerzbank",
+            "taxClass": "",
+            "taxGroup": "",
+            "taxRate": null
           }
         }
       }
     },
     methods: {
       selectTemplate(name) {
+        console.log("datatopass", this.templates[name])
         this.selectedTemplate = name;
-        this.$emit("useTemplate", this.templates[this.selectedTemplate]);
+        this.$emit("changeCurrentInput", this.templates[this.selectedTemplate]);
       }
     }
   }
