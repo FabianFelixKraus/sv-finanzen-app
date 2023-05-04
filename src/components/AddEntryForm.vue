@@ -73,7 +73,7 @@
 <script>
 export default {
   name: 'AddEntryForm',
-  props: ["allTransactions", "currentInput"],
+  props: ["currentInput"],
   computed: {
     inputData() {
       return {
@@ -110,10 +110,6 @@ export default {
     };
   },
   methods: {
-    handleInput(event) {
-      this.message = event.target.value;
-      this.$emit("handleInput", this.message);
-    },
     addStatementOfAccountId(event) {
       this.statementOfAccountId = event.target.value;
     },
@@ -159,8 +155,7 @@ export default {
           "taxGroup": this.inputData.taxGroup,
           "taxRate": this.inputData.taxRate
         };
-        this.allTransactions.push(newTransaction);
-        this.$emit("getAllNewTransactions", this.allTransactions);
+        this.$emit("getNewTransaction", newTransaction);
       } else {
         alert(this.$t("formValidationErrorMessage"))
       }

@@ -14,6 +14,9 @@
       <li>{{ transaction.taxRate }}</li>
     </ol>
   </div>
+  <button class="btn-primary" @click="showAllEntries">
+    show transactions
+  </button>
 </template>
 <script>
   export default {
@@ -23,6 +26,13 @@
         test: "1324"
       }
     },
-    props: ["allEntries"]
+    props: ["allEntries"],
+    methods: {
+      async showAllEntries() {
+        const response = await fetch("http://localhost:3000/transactions");
+        const transactions = await response.json();
+        console.log(transactions)
+      }
+    }
   }
 </script>

@@ -13,22 +13,24 @@ import SelectTemplate from "@/components/SelectTemplate.vue"
         <div class="hr"></div>
         <SelectTemplate @changeCurrentInput="changeCurrentInputByGivenTemplate" />
         <div class="hr"></div>
-        <AddEntryForm :allTransactions="allTransactions" :currentInput="currentInput" class="center-content"/>
+        <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
         <div class="hr"></div>
-        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getAllNewTransactions="handleNewTransactions" />
+        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getNewTransaction="handleNewTransactions" />
       </div>
     </div>
   </div>
  </template>
 
 <script>
+import axios from "axios";
+
 export default {
   components: ["AddEntryForm","ShowAllEntries","SelectTemplate","Header"],
   data () {
     return {
       currentInput: {
-        "date": "2023-04-16T12:34:56.789Z",
-        "description": "Vorgang 1",
+        "date": "2023-04-16",
+        "description": "Vorgang 3",
         "statementOfAccountId": 1,
         "isExpense": false,
         "location": "Gemeinschaftsraum",
@@ -38,40 +40,43 @@ export default {
         "taxGroup": "GRA",
         "taxRate": 19
       },
-      allTransactions: [{
-        "date": "2023-04-16T12:34:56.789Z",
-        "description": "Vorgang 1",
-        "statementOfAccountId": 1,
-        "isExpense": false,
-        "location": "Gemeinschaftsraum",
-        "amount":  32.33,
-        "account": "Commerzbank",
-        "taxClass": "Mehrwertsteuer (voll)",
-        "taxGroup": "GRA",
-        "taxRate": 19
-      },
-      {
-        "date": "2023-04-10T12:34:56.789Z",
-        "description": "Vorgang 2",
-        "statementOfAccountId": 2,
-        "isExpense": true,
-        "location": "Waschbar",
-        "amount": 0,
-        "account": "Kasse, bar",
-        "taxClass": "Umsatzsteuer",
-        "taxGroup": "WBE",
-        "taxRate": 19
-      }]
+      allTransactions: [],
     }
   },
   methods: {
-    handleNewTransactions (newAllTransactions) {
-      this.allTransactions = newAllTransactions;
+    handleNewTransactions (newTransaction) {
+      // this.allTransactions = [...this.allTransactions, newTransaction];
+      axios.post("http://localhost:3000/transactions", newTransaction)
+          .then((response) => {
+            console.log(response);
+            this.fetchTransactions();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    fetchTransactions() {
+      axios.get("http://localhost:3000/transactions")
+          .then((response) => {
+            this.allTransactions = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
     },
     changeCurrentInputByGivenTemplate(newCurrentInput) {
       console.log("newCurrentInput", newCurrentInput);
       this.currentInput = newCurrentInput;
     }
+  },
+  created() {
+    axios.get("http://localhost:3000/transactions")
+        .then((response) => {
+          this.allTransactions = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
 }
 </script>
