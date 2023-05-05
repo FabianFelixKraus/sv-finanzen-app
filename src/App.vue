@@ -46,7 +46,7 @@ export default {
   methods: {
     handleNewTransactions (newTransaction) {
       // this.allTransactions = [...this.allTransactions, newTransaction];
-      axios.post("http://localhost:3000/transactions", newTransaction)
+      axios.post("http://localhost/api/transactions", newTransaction)
           .then((response) => {
             console.log(response);
             this.fetchTransactions();
@@ -56,7 +56,7 @@ export default {
           });
     },
     fetchTransactions() {
-      axios.get("http://localhost:3000/transactions")
+      axios.get("http://localhost/api/transactions")
           .then((response) => {
             this.allTransactions = response.data;
           })

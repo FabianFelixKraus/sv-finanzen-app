@@ -25,5 +25,6 @@
   "taxClass": "Class of tax (Umsatzsteuer etc.)",
   "taxGroup": "Category for tax (WBA etc.)",
   "taxRate": "Tax-rate",
-  "telekom": "Telekom"
+  "telekom": "Telekom",
+  "edit": "edit"
 }

@@ -1,38 +1,58 @@
 <template>
   <h2 class="center-content">{{$t("showAllTransactions")}}</h2>
-  <div class="center-content">
-    <ol key="index" v-for="(transaction, index) in allEntries">
-      <li>{{ transaction.date }}</li>
-      <li>{{ transaction.description }}</li>
-      <li>{{ transaction.statementOfAccountId }}</li>
-      <li>{{ transaction.isExpense }}</li>
-      <li>{{ transaction.location }}</li>
-      <li>{{ transaction.amount }}</li>
-      <li>{{ transaction.account }}</li>
-      <li>{{ transaction.taxClass }}</li>
-      <li>{{ transaction.taxGroup }}</li>
-      <li>{{ transaction.taxRate }}</li>
-    </ol>
-  </div>
-  <button class="btn-primary" @click="showAllEntries">
-    show transactions
-  </button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">{{$t("date")}}</th>
+        <th scope="col">{{$t("description")}}</th>
+        <th scope="col">{{$t("statementOfAccountId")}}</th>
+        <th scope="col">{{$t("expense/income")}}</th>
+        <th scope="col">{{$t("location")}}</th>
+        <th scope="col">{{$t("amount")}}</th>
+        <th scope="col">{{$t("account")}}</th>
+        <th scope="col">{{$t("taxClass")}}</th>
+        <th scope="col">{{$t("taxGroup")}}</th>
+        <th scope="col">{{$t("taxRate")}}</th>
+        <td>
+          <img src="/edit.svg" alt="Edit" width="16" height="16">
+        </td>
+      </tr>
+    </thead>
+    <tbody class="table-striped">
+    <tr v-for="(transaction, index) in allEntries" :key="index">
+      <td>{{ transaction.date }}</td>
+      <td>{{ transaction.description }}</td>
+      <td>{{ transaction.statementOfAccountId }}</td>
+      <td>{{ transaction.isExpense }}</td>
+      <td>{{ transaction.location }}</td>
+      <td>{{ transaction.amount }}</td>
+      <td>{{ transaction.account }}</td>
+      <td>{{ transaction.taxClass }}</td>
+      <td>{{ transaction.taxGroup }}</td>
+      <td>{{ transaction.taxRate }}</td>
+      <td>
+        <EditTransaction />
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </template>
 <script>
   export default {
     name: "ShowAllEntries",
+    components: ["EditTransaction"],
     data() {
       return {
         test: "1324"
       }
     },
-    props: ["allEntries"],
-    methods: {
-      async showAllEntries() {
-        const response = await fetch("http://localhost:3000/transactions");
-        const transactions = await response.json();
-        console.log(transactions)
-      }
-    }
+    props: ["allEntries"]
   }
 </script>
+
+<style>
+  .table-striped tr:nth-child(2n+1) {
+    background-color: #f2f2f2;
+  }
+</style>
