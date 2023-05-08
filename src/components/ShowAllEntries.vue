@@ -15,7 +15,7 @@
         <th scope="col">{{$t("taxGroup")}}</th>
         <th scope="col">{{$t("taxRate")}}</th>
         <td>
-          <img src="/edit.svg" alt="Edit" width="16" height="16">
+          <img src="/pencil.svg" alt="Edit" width="16" height="16">
         </td>
       </tr>
     </thead>
@@ -32,22 +32,31 @@
       <td>{{ transaction.taxGroup }}</td>
       <td>{{ transaction.taxRate }}</td>
       <td>
-        <EditTransaction />
+        <EditTransaction :editIsOpened="transaction.isTransactionEdited" :indexOfTransactionToEdit="index" @update:editIsOpened="updateRowEditedStatus"/>
       </td>
     </tr>
     </tbody>
   </table>
 </template>
 <script>
+  import EditTransaction from "@/components/EditTransaction.vue";
+
   export default {
     name: "ShowAllEntries",
-    components: ["EditTransaction"],
+    components: {
+      EditTransaction
+    },
+    props: ["allEntries"],
     data() {
       return {
-        test: "1324"
+        isCurrentlyEdited: false
       }
     },
-    props: ["allEntries"]
+    methods: {
+      updateRowEditedStatus(isTransactionEdited, indexOfTransactionToEdit) {
+        this.allEntries[indexOfTransactionToEdit].isTransactionEdited = isTransactionEdited;
+      }
+    }
   }
 </script>
 

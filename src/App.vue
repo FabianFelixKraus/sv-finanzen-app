@@ -1,10 +1,3 @@
-<script setup>
-import AddEntryForm from "@/components/AddEntryForm.vue";
-import ShowAllEntries from  "@/components/ShowAllEntries.vue";
-import Header from "@/components/Header.vue";
-import SelectTemplate from "@/components/SelectTemplate.vue"
-</script>
-
 <template>
   <div class="container">
     <div class="row">
@@ -23,9 +16,18 @@ import SelectTemplate from "@/components/SelectTemplate.vue"
 
 <script>
 import axios from "axios";
+import AddEntryForm from "@/components/AddEntryForm.vue";
+import ShowAllEntries from "@/components/ShowAllEntries.vue";
+import Header from "@/components/Header.vue";
+import SelectTemplate from "@/components/SelectTemplate.vue";
 
 export default {
-  components: ["AddEntryForm","ShowAllEntries","SelectTemplate","Header"],
+  components: {
+    AddEntryForm,
+    ShowAllEntries,
+    Header,
+    SelectTemplate
+  },
   data () {
     return {
       currentInput: {
@@ -45,7 +47,6 @@ export default {
   },
   methods: {
     handleNewTransactions (newTransaction) {
-      // this.allTransactions = [...this.allTransactions, newTransaction];
       axios.post("http://localhost/api/transactions", newTransaction)
           .then((response) => {
             console.log(response);

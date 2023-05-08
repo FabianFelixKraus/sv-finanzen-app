@@ -1,6 +1,5 @@
 <template>
   <span class="flex" key="index" v-for="(name, index) in templateNames" :title="$t(name) + ' ' + $t('selectTemplate')">
-<!--    :class="templateClass(name)"-->
     <button
         type="button"
         class="btn btn-outline-primary template-button"
