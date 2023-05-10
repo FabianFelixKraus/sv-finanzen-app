@@ -1,6 +1,6 @@
 {
   "name": "sv-finanzen",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "vite",
@@ -19,6 +19,7 @@
     "popper.js": "^1.16.1",
     "vite": "^4.2.1",
     "vue": "^3.2.47",
-    "vue-i18n": "^9.2.2"
+    "vue-i18n": "^9.2.2",
+    "xlsx": "^0.18.5"
   }
 }

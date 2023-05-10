@@ -26,5 +26,7 @@
   "taxGroup": "Steuerkategorie (WBA etc.)",
   "taxRate": "Steuersatz",
   "telekom": "Telekom",
-  "edit": "Bearbeiten"
+  "edit": "Bearbeiten",
+  "exportToExcel": "Als Excel exportieren",
+  "delete": "Löschen"
 }

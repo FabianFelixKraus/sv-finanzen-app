@@ -9,6 +9,8 @@
         <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
         <div class="hr"></div>
         <ShowAllEntries class="center-content" :allEntries="allTransactions" @getNewTransaction="handleNewTransactions" />
+        <ExcelExporter :transactions="allTransactions" />
+        <div class="hr"></div>
       </div>
     </div>
   </div>
@@ -20,13 +22,15 @@ import AddEntryForm from "@/components/AddEntryForm.vue";
 import ShowAllEntries from "@/components/ShowAllEntries.vue";
 import Header from "@/components/Header.vue";
 import SelectTemplate from "@/components/SelectTemplate.vue";
+import ExcelExporter from "@/components/ExcelExporter.vue";
 
 export default {
   components: {
     AddEntryForm,
     ShowAllEntries,
     Header,
-    SelectTemplate
+    SelectTemplate,
+    ExcelExporter
   },
   data () {
     return {
@@ -66,7 +70,6 @@ export default {
           });
     },
     changeCurrentInputByGivenTemplate(newCurrentInput) {
-      console.log("newCurrentInput", newCurrentInput);
       this.currentInput = newCurrentInput;
     }
   },

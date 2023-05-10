@@ -26,5 +26,7 @@
   "taxGroup": "Category for tax (WBA etc.)",
   "taxRate": "Tax-rate",
   "telekom": "Telekom",
-  "edit": "edit"
+  "edit": "Edit",
+  "exportToExcel": "Export as Excel",
+  "delete": "Delete"
 }
