@@ -1,34 +1,42 @@
-<script setup>
-import AddEntryForm from "@/components/AddEntryForm.vue";
-import ShowAllEntries from  "@/components/ShowAllEntries.vue";
-import Header from "@/components/Header.vue";
-import SelectTemplate from "@/components/SelectTemplate.vue"
-</script>
-
 <template>
   <div class="container">
     <div class="row">
       <Header />
       <div class="col-12">
         <div class="hr"></div>
-        <SelectTemplate />
+        <SelectTemplate @changeCurrentInput="changeCurrentInputByGivenTemplate" />
         <div class="hr"></div>
-        <AddEntryForm  :allTransactions="allTransactions" class="center-content"/>
+        <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
         <div class="hr"></div>
-        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getAllNewTransactions="handleNewTransactions" />
+        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getNewTransaction="handleNewTransactions" />
+        <ExcelExporter :transactions="allTransactions" />
+        <div class="hr"></div>
       </div>
     </div>
   </div>
  </template>
 
 <script>
+import axios from "axios";
+import AddEntryForm from "@/components/AddEntryForm.vue";
+import ShowAllEntries from "@/components/ShowAllEntries.vue";
+import Header from "@/components/Header.vue";
+import SelectTemplate from "@/components/SelectTemplate.vue";
+import ExcelExporter from "@/components/ExcelExporter.vue";
+
 export default {
-  components: ["AddEntryForm","ShowAllEntries","SelectTemplate","Header"],
+  components: {
+    AddEntryForm,
+    ShowAllEntries,
+    Header,
+    SelectTemplate,
+    ExcelExporter
+  },
   data () {
     return {
-      allTransactions: [{
-        "date": "2023-04-16T12:34:56.789Z",
-        "description": "Vorgang 1",
+      currentInput: {
+        "date": "2023-04-16",
+        "description": "Vorgang 3",
         "statementOfAccountId": 1,
         "isExpense": false,
         "location": "Gemeinschaftsraum",
@@ -38,28 +46,46 @@ export default {
         "taxGroup": "GRA",
         "taxRate": 19
       },
-      {
-        "date": "2023-04-10T12:34:56.789Z",
-        "description": "Vorgang 2",
-        "statementOfAccountId": 2,
-        "isExpense": true,
-        "location": "Waschbar",
-        "amount": 0,
-        "account": "Kasse, bar",
-        "taxClass": "Umsatzsteuer",
-        "taxGroup": "WBE",
-        "taxRate": 19
-      }]
+      allTransactions: [],
     }
   },
   methods: {
     handleNewTransactions (newTransaction) {
-      this.allTransactions = newTransaction;
+      axios.post("http://localhost/api/transactions", newTransaction)
+          .then((response) => {
+            console.log(response);
+            this.fetchTransactions();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    fetchTransactions() {
+      axios.get("http://localhost/api/transactions")
+          .then((response) => {
+            this.allTransactions = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+    },
+    changeCurrentInputByGivenTemplate(newCurrentInput) {
+      this.currentInput = newCurrentInput;
     }
+  },
+  created() {
+    axios.get("http://localhost:3000/transactions")
+        .then((response) => {
+          this.allTransactions = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
   },
 }
 </script>
 <!--TODO-->
-<!--Bei welchen Tags lohnt sich ein :title hinzuzufügen, sodass bei Hovern eine Erklärung erscheint?-->
+<!--Click auf Hinzufügen macht sprung des cursers in Kontoauszugsnummer feld-->
+<!--Shortcuts einbauen für templates-->
 <!--Form Validation Einfügen-->
 <!--Template Kaution-->
