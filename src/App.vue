@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     handleNewTransactions (newTransaction) {
-      axios.post("http://localhost/api/transactions", newTransaction)
+      axios.post("http://localhost:3000/transactions", newTransaction)
           .then((response) => {
             console.log(response);
             this.fetchTransactions();
@@ -61,7 +61,7 @@ export default {
           });
     },
     fetchTransactions() {
-      axios.get("http://localhost/api/transactions")
+      axios.get("http://localhost:3000/transactions")
           .then((response) => {
             this.allTransactions = response.data;
           })
