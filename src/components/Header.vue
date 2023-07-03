@@ -2,10 +2,10 @@
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 </script>
 <template>
-  <div class="col-10">
+  <div class="col-11">
     <h1 style="margin-top: 1em">{{$t("addNewTransaction")}}</h1>
   </div>
-  <div class="col-2 center-content" @click="toggleLanguage">
+  <div class="col-1 center-content" @click="toggleLanguage">
     <span class="fi" :class="['fi-' + flagIconClass, 'image-scaling']" :title="explanationText"></span>
   </div>
 </template>
