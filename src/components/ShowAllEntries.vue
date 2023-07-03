@@ -4,10 +4,10 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">{{$t("date")}}</th>
+        <th scope="col"><button @click="sortByDate">{{$t("date")}}</button></th>
         <th scope="col">{{$t("description")}}</th>
         <th scope="col">{{$t("statementOfAccountId")}}</th>
-        <th scope="col">{{$t("expense/income")}}</th>
+        <th scope="col">{{$t("expenseIncome")}}</th>
         <th scope="col">{{$t("location")}}</th>
         <th scope="col">{{$t("amount")}}</th>
         <th scope="col">{{$t("account")}}</th>
@@ -27,7 +27,7 @@
     <tbody class="table-striped">
     <tr v-for="(entry, index) in allEntries" :key="index">
       <td>
-        <template v-if="!entry.isTransactionEdited">{{ entry.date }}</template>
+        <template v-if="!entry.isTransactionEdited">{{ formatDate(entry.date) }}</template>
         <input v-else type="date" v-model="editedEntries[index].date" />
       </td>
       <td>
@@ -39,7 +39,7 @@
         <input v-else type="number" v-model="editedEntries[index].statementOfAccountId" />
       </td>
       <td>
-        <template v-if="!entry.isTransactionEdited">{{ entry.isExpense ? 'Expense' : 'Income' }}</template>
+        <template v-if="!entry.isTransactionEdited">{{ entry.isExpense ? $t('expense') : $t('income') }}</template>
         <select v-else v-model="editedEntries[index].isExpense">
           <option value="true">Expense</option>
           <option value="false">Income</option>
@@ -82,15 +82,20 @@
   </table>
 </template>
 <script>
-  import EditTransaction from "@/components/EditTransaction.vue";
-  import axios from "axios";
+import EditTransaction from "@/components/EditTransaction.vue";
+import axios from "axios";
 
-  export default {
+export default {
     name: "ShowAllEntries",
     components: {
       EditTransaction
     },
     props: ["allEntries"],
+    data() {
+      return {
+        isSortedAscending: true
+      }
+    },
     computed: {
       editedEntries: function() {
         return this.allEntries.map(entry => Object.assign({}, entry));
@@ -100,7 +105,7 @@
       updateRowEditedStatus(updatedIsTransactionEditedStatus, indexOfTransactionToEdit, action) {
         if (action === "save") {
           this.allEntries[indexOfTransactionToEdit] = this.editedEntries[indexOfTransactionToEdit];
-          axios.put("http://localhost/api/transactions/" + this.allEntries[indexOfTransactionToEdit]._id, this.allEntries[indexOfTransactionToEdit])
+          axios.put("http://localhost/transactions/" + this.allEntries[indexOfTransactionToEdit]._id, this.allEntries[indexOfTransactionToEdit])
             .then(response => console.log(response))
             .catch(error => console.log(error));
         }
@@ -110,12 +115,34 @@
         this.allEntries[indexOfTransactionToEdit].isTransactionEdited = updatedIsTransactionEditedStatus;
       },
       deleteTransaction(id, index) {
-        axios.delete("http://localhost/api/transactions/" + id)
+        axios.delete("http://localhost/transactions/" + id)
           .then(response => {
             console.log(response);
             this.allEntries.splice(index, 1);
           })
           .catch(error => console.log(error));
+      },
+      formatDate(dateString) {
+        // Create a Date object from the input string
+        const date = new Date(dateString);
+
+        // Get the day, month, and year components
+        const day = date.getUTCDate();
+        const month = date.getUTCMonth() + 1; // Months are zero-based, so add 1
+        const year = date.getUTCFullYear();
+
+        // Format the components as a string in the desired format
+        return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
+      },
+      sortByDate() {
+        if (this.allEntries.length > 1) {
+          this.isSortedAscending = this.allEntries[0].date < this.allEntries[1].date;
+        }
+        if (this.isSortedAscending) {
+          return this.allEntries.sort((a, b) => new Date(b.date) > new Date(a.date));
+        } else {
+          return this.allEntries.sort((a, b) => new Date(b.date) < new Date(a.date));
+        }
       }
     }
   }
