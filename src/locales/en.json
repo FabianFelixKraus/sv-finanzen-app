@@ -30,5 +30,16 @@
   "telekom": "Telekom",
   "edit": "Edit",
   "exportToExcel": "Export as Excel",
-  "delete": "Delete"
+  "delete": "Delete",
+  "result": "Result",
+  "balanceCommerzbank": "Balance Commerzbank",
+  "balanceCash": "Balance Cash",
+  "totalBalance": "Total Balance",
+  "sumMonth": "Sum Month",
+  "startBalance": "Balance at the beginning of semester",
+  "sum": "Sum",
+  "vodafone": "Vodafone",
+  "sumUp": "Sum Up",
+  "payOne": "PAYONE",
+  "rentStudentWERK": "Rent"
 }

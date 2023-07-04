@@ -8,6 +8,7 @@
   "cleaningService": "3B Dienstleistungen",
   "date": "Datum",
   "deposit": "Kaution",
+  "vodafone": "Vodafone",
   "description": "Beschreibung",
   "electricityBill": "Naturstrom Handel",
   "empty": "Leer",
@@ -30,5 +31,15 @@
   "telekom": "Telekom",
   "edit": "Bearbeiten",
   "exportToExcel": "Als Excel exportieren",
-  "delete": "Löschen"
+  "delete": "Löschen",
+  "result": "Ergebnis",
+  "balanceCommerzbank": "Kontostand Commerbank",
+  "balanceCash": "Kontostand Kasse, bar",
+  "totalBalance": "Gesamtvermögen",
+  "sumMonth": "Summe Monat",
+  "startBalance": "Kontostand zu Beginn des Semesters",
+  "sum": "Summe",
+  "sumUp": "Sum Up",
+  "payOne": "PAYONE",
+  "rentStudentWERK": "Miete"
 }

@@ -15,7 +15,7 @@
     data () {
       return {
         selectedTemplate: undefined,
-        templateNames: ["card4Vend", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "deposit","empty"],
+        templateNames: ["card4Vend", "sumUp", "payOne", "rentStudentWERK", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "deposit", "vodafone", "empty"],
         templates: {
           "card4Vend": {
             "date": new Date().toISOString().split('T')[0],
@@ -27,6 +27,42 @@
             "account": "Commerzbank",
             "taxClass": "Umsatzsteuer",
             "taxGroup": "WBE",
+            "taxRate": 19
+          },
+          "sumUp": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Sum up",
+            "statementOfAccountId": null,
+            "isExpense": false,
+            "location": "Gemeinschaftsraum",
+            "amount":  null,
+            "account": "Commerzbank",
+            "taxClass": "Umsatzsteuer",
+            "taxGroup": "GRE",
+            "taxRate": 19
+          },
+          "payOne": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "PAYONE GmbH",
+            "statementOfAccountId": null,
+            "isExpense": false,
+            "location": "Waschbar",
+            "amount":  null,
+            "account": "Commerzbank",
+            "taxClass": "Umsatzsteuer",
+            "taxGroup": "WBE",
+            "taxRate": 19
+          },
+          "rentStudentWERK": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Miete StudierendenWERK",
+            "statementOfAccountId": null,
+            "isExpense": true,
+            "location": "Waschbar",
+            "amount":  160.00,
+            "account": "Commerzbank",
+            "taxClass": "Mwst. voll",
+            "taxGroup": "WBA",
             "taxRate": 19
           },
           "invoice": {
@@ -83,7 +119,7 @@
             "statementOfAccountId": null,
             "isExpense": true,
             "location": "Sonstiges",
-            "amount":  null,
+            "amount":  30.35,
             "account": "Commerzbank",
             "taxClass": "MwSt. voll",
             "taxGroup": "KtA",
@@ -100,6 +136,30 @@
             "taxClass": "keine",
             "taxGroup": "??",
             "taxRate": 0
+          },
+          "flaschenport": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Erstattung Getränkelieferung Flaschenpost SE",
+            "statementOfAccountId": null,
+            "isExpense": true,
+            "location": "Gemeinschaftsraum",
+            "amount":  null,
+            "account": "Commerzbank",
+            "taxClass": "MwSt. voll",
+            "taxGroup": "GRA",
+            "taxRate": 19
+          },
+          "vodafone": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "Vodafone GmbH",
+            "statementOfAccountId": null,
+            "isExpense": true,
+            "location": "Waschbar",
+            "amount":  26.73,
+            "account": "Commerzbank",
+            "taxClass": "MwSt. voll",
+            "taxGroup": "WBA",
+            "taxRate": 19
           },
           "empty": {
             "date": new Date().toISOString().split('T')[0],

@@ -35,16 +35,16 @@ export default {
   data () {
     return {
       currentInput: {
-        "date": "2023-04-16",
-        "description": "Vorgang 3",
-        "statementOfAccountId": 1,
+        "date": new Date(),
+        "description": "",
+        "statementOfAccountId": 0,
         "isExpense": false,
-        "location": "Gemeinschaftsraum",
-        "amount":  32.33,
-        "account": "Commerzbank",
-        "taxClass": "Mehrwertsteuer (voll)",
-        "taxGroup": "GRA",
-        "taxRate": 19
+        "location": "",
+        "amount":  0,
+        "account": "",
+        "taxClass": "",
+        "taxGroup": "",
+        "taxRate": 0
       },
       allTransactions: [],
     }

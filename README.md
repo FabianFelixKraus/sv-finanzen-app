@@ -27,3 +27,20 @@ npm run dev
 ```sh
 npm run build
 ```
+
+
+## Feature ideas
+
+- allow "." and "," for input of amount
+- Add loading screen after adding transaction
+- Check if last added transaction and newly added transactions are equal,
+if so create Dialog to ask if this transaction should really be added
+- Calculate the current balance of each account after each month and each statementofAccountId
+- Add sort button for each table head entry
+- Refactor the ShowAllEntries components and its children
+- Think about the Excel export, could be nicer
+- Add Visualizations for balance movement over time
+- Improve styling
+- Add coloring
+- Keep statementOfAccountId after selection of different template
+- Add Status for each statementOfAccount like: "ToDo", "InKassenbuch", "Paperwork done"
