@@ -2,7 +2,7 @@
   <span class="flex" key="index" v-for="(name, index) in templateNames" :title="$t(name) + ' ' + $t('selectTemplate')">
     <button
         type="button"
-        class="btn btn-outline-primary template-button"
+        class="btn btn-outline-primary template-button m-1"
         @click="selectTemplate(name)"
     >
       {{ $t(name) }}

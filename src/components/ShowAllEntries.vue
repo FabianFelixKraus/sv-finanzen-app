@@ -27,20 +27,20 @@
 <!--      </tr>-->
 <!--    </thead>-->
 <!--    <tbody class="table-striped">-->
-    <div v-for="(allEntriesPerMonth, index) in createMonthlyArrays" :key="index">
-      <ShowAllEntriesPerMonth :allEntriesPerMonth="allEntriesPerMonth" />
+    <div v-for="(allEntriesPerStatementOfAccountId, index) in createStatementOfAccountIdArrays" :key="index">
+      <ShowAllEntriesPerStatementOfAccountId :allEntriesPerStatementOfAccountId="allEntriesPerStatementOfAccountId" />
     </div>
 <!--    </tbody>-->
 <!--  </table>-->
 </template>
 <script>
-import ShowAllEntriesPerMonth from "@/components/ShowAllEntriesPerMonth.vue";
 import StartBalance from "@/components/StartBalance.vue";
+import showAllEntriesPerStatementOfAccountId from "@/components/ShowAllEntriesPerStatementOfAccountId.vue";
 
 export default {
     name: "ShowAllEntries",
     components: {
-      ShowAllEntriesPerMonth,
+      ShowAllEntriesPerStatementOfAccountId: showAllEntriesPerStatementOfAccountId,
       StartBalance
     },
     props: ["allEntries"],
@@ -50,29 +50,25 @@ export default {
       }
     },
     computed: {
-      createMonthlyArrays: function() {
+      createStatementOfAccountIdArrays: function() {
         // Use reduce to group the objects by month
-        const monthlyArrays = this.allEntries.reduce((acc, obj) => {
-          // Get the month and year components from the date attribute
-          const month = new Date(obj.date).getMonth();
-          const year = new Date(obj.date).getFullYear();
+        const statementOfAccountIdArrays = this.allEntries.reduce((acc, obj) => {
+          // Get the statementOfAccountId from the statementOfAccountId attribute
+          const statementOfAccountId = obj.statementOfAccountId;
 
-          // Create a unique key for the month and year
-          const key = `${year}-${month}`;
-
-          // If the key doesn't exist in the accumulator, create a new array for it
-          if (!acc[key]) {
-            acc[key] = [];
+          // If the statementOfAccountId doesn't exist in the accumulator, create a new array for it
+          if (!acc[statementOfAccountId]) {
+            acc[statementOfAccountId] = [];
           }
 
           // Push the object into the corresponding month array
-          acc[key].push(obj);
+          acc[statementOfAccountId].push(obj);
 
           return acc;
         }, {});
-        console.log(Object.values(monthlyArrays))
+        console.log(Object.values(statementOfAccountIdArrays))
         // Convert the monthlyArrays object into an array of arrays
-        return Object.values(monthlyArrays);
+        return Object.values(statementOfAccountIdArrays);
       }
     },
     methods: {

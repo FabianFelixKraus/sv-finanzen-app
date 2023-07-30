@@ -5,20 +5,20 @@ import EditTransaction from "@/components/EditTransaction.vue";
 
 <template>
   <br>
-  <h2>{{getMonth}}</h2>
+  <h2>{{$t('statementOfAccountIdDescription')}} {{ getStatementOfAccountId }}</h2>
   <table class="table">
-    <thead>
+    <thead class="table-head-content-not-wrapped">
     <tr>
-      <th scope="col"><button @click="sortByDate">{{$t("date")}}</button></th>
-      <th scope="col">{{$t("description")}}</th>
       <th scope="col">{{$t("statementOfAccountId")}}</th>
-      <th scope="col">{{$t("expenseIncome")}}</th>
-      <th scope="col">{{$t("location")}}</th>
-      <th scope="col">{{$t("amount")}}</th>
-      <th scope="col">{{$t("account")}}</th>
-      <th scope="col">{{$t("taxClass")}}</th>
-      <th scope="col">{{$t("taxGroup")}}</th>
-      <th scope="col">{{$t("taxRate")}}</th>
+      <th scope="col"><button @click="sortBy('date')">{{$t("date")}}</button></th>
+      <th scope="col"><button @click="sortBy('description')">{{$t("description")}}</button></th>
+      <th scope="col"><button @click="sortBy('isExpense')">{{$t("expenseIncome")}}</button></th>
+      <th scope="col"><button @click="sortBy('location')">{{$t("location")}}</button></th>
+      <th scope="col"><button @click="sortBy('amount')">{{$t("amount")}}</button></th>
+      <th scope="col"><button @click="sortBy('account')">{{$t("account")}}</button></th>
+      <th scope="col"><button @click="sortBy('taxClass')">{{$t("taxClass")}}</button></th>
+      <th scope="col"><button @click="sortBy('taxGroup')">{{$t("taxGroup")}}</button></th>
+      <th scope="col"><button @click="sortBy('taxRate')">{{$t("taxRate")}}</button></th>
       <th>
         {{$t("edit")}}
         <img src="/pencil.svg" alt="Edit" width="16" height="16">
@@ -30,7 +30,11 @@ import EditTransaction from "@/components/EditTransaction.vue";
     </tr>
     </thead>
     <tbody class="table-striped">
-      <tr v-for="(entry, index) in allEntriesPerMonth" :key="index">
+      <tr v-for="(entry, index) in sortedDates" :key="index">
+        <td>
+          <template v-if="!entry.isTransactionEdited">{{ entry.statementOfAccountId }}</template>
+          <input v-else type="number" v-model="editedEntries[index].statementOfAccountId" />
+        </td>
         <td>
           <template v-if="!entry.isTransactionEdited">{{ formatDate(entry.date) }}</template>
           <input v-else type="date" v-model="editedEntries[index].date" />
@@ -38,10 +42,6 @@ import EditTransaction from "@/components/EditTransaction.vue";
         <td>
           <template v-if="!entry.isTransactionEdited">{{ entry.description }}</template>
           <input v-else type="text" v-model="editedEntries[index].description" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.statementOfAccountId }}</template>
-          <input v-else type="number" v-model="editedEntries[index].statementOfAccountId" />
         </td>
         <td>
           <template v-if="!entry.isTransactionEdited">{{ entry.isExpense ? $t('expense') : $t('income') }}</template>
@@ -83,48 +83,6 @@ import EditTransaction from "@/components/EditTransaction.vue";
           </button>
         </td>
       </tr>
-      <tr>
-        <td>
-          <h3> {{$t("result")}}</h3>
-        </td>
-        <td>
-          {{$t("balanceCommerzbank")}}
-        </td>
-        <td>
-          {{$t("balanceCash")}}
-        </td>
-        <td>
-          {{$t("totalBalance")}}
-        </td>
-      </tr>
-      <tr>
-        <td>
-          {{$t("sumMonth")}}
-        </td>
-        <td>
-          {{getBalance("Commerzbank")}}
-        </td>
-        <td>
-          {{getBalance("Kasse, bar")}}
-        </td>
-        <td>
-          {{getBalance()}}
-        </td>
-      </tr>
-<!--      <tr>-->
-<!--        <td>-->
-<!--          {{$t("sum")}}-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          {{getBalance("Commerzbank") + }}-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          {{getBalance("Kasse, bar") + }}-->
-<!--        </td>-->
-<!--        <td>-->
-<!--          {{getBalance() + }}-->
-<!--        </td>-->
-<!--      </tr>-->
     </tbody>
   </table>
 
@@ -135,44 +93,66 @@ import EditTransaction from "@/components/EditTransaction.vue";
   import axios from "axios";
 
   export default {
-    name: "ShowAllEntriesPerMonth",
-    props: ["allEntriesPerMonth"],
+    name: "ShowAllEntriesPerStatementOfAccountId",
+    props: ["allEntriesPerStatementOfAccountId"],
     data () {
       return {
-        isSortedAscending: true
+        isSortedAscending: true,
+        sortKey: 'date'
       }
     },
     computed: {
       editedEntries: function() {
-        return this.allEntriesPerMonth.map(entry => Object.assign({}, entry));
+        return this.allEntriesPerStatementOfAccountId.map(entry => Object.assign({}, entry));
       },
-      getMonth: function() {
-        const date = new Date(this.allEntriesPerMonth[0].date);
-        const monthName = date.toLocaleString("default", {month: "long"});
-        const year = date.getFullYear();
+      getStatementOfAccountId: function() {
+        return this.allEntriesPerStatementOfAccountId[0].statementOfAccountId;
+      },
+      sortedDates: function() {
+        return this.allEntriesPerStatementOfAccountId.slice().sort((a,b) => {
+          if (this.sortKey === 'date') {
+            if (this.isSortedAscending) {
+              return new Date(a.date) - new Date(b.date);
+            } else {
+              return new Date(b.date) - new Date(a.date);
+            }
+          } else if (this.sortKey === 'amount' || this.sortKey === 'taxRate' || this.sortKey === 'isExpense') {
+            if (this.isSortedAscending) {
+              return a[this.sortKey] - b[this.sortKey];
+            } else {
+              return b[this.sortKey] - a[this.sortKey];
+            }
+          } else {
+            if (this.isSortedAscending) {
+              return a[this.sortKey].localeCompare(b[this.sortKey]);
+            } else {
+              return b[this.sortKey].localeCompare(a[this.sortKey]);
+            }
+          }
 
-        return monthName + " " + year
+        }
+        )
       }
     },
     methods: {
       updateRowEditedStatus(updatedIsTransactionEditedStatus, indexOfTransactionToEdit, action) {
         if (action === "save") {
-          this.allEntriesPerMonth[indexOfTransactionToEdit] = this.editedEntries[indexOfTransactionToEdit];
-          axios.put("http://localhost:3000/transactions/" + this.allEntriesPerMonth[indexOfTransactionToEdit]._id, this.allEntriesPerMonth[indexOfTransactionToEdit])
+          this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit] = this.editedEntries[indexOfTransactionToEdit];
+          axios.put("http://localhost:3000/transactions/" + this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit]._id, this.allEntriesPerMonth[indexOfTransactionToEdit])
               .then(response => console.log(response))
               .catch(error => console.log(error));
         }
         else if (action === "cancel") {
-          this.editedEntries = this.allEntriesPerMonth;
+          this.editedEntries = this.allEntriesPerStatementOfAccountId;
         }
-        this.allEntriesPerMonth[indexOfTransactionToEdit].isTransactionEdited = updatedIsTransactionEditedStatus;
+        this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit].isTransactionEdited = updatedIsTransactionEditedStatus;
       },
       deleteTransaction(id, index) {
         console.log("id", id)
         axios.delete("http://localhost:3000/transactions/" + id)
             .then(response => {
               console.log(response);
-              this.allEntriesPerMonth.splice(index, 1);
+              this.allEntriesPerStatementOfAccountId.splice(index, 1);
             })
             .catch(error => console.log(error));
       },
@@ -188,20 +168,16 @@ import EditTransaction from "@/components/EditTransaction.vue";
         // Format the components as a string in the desired format
         return `${day < 10 ? '0' + day : day}.${month < 10 ? '0' + month : month}.${year}`;
       },
-      sortByDate() {
-        console.log(this.allEntriesPerMonth)
-        if (this.allEntriesPerMonth.length > 1) {
-          this.isSortedAscending = this.allEntriesPerMonth[0].date < this.allEntriesPerMonth[1].date;
-        }
-        console.log(this.isSortedAscending)
-        if (this.isSortedAscending) {
-          return this.allEntriesPerMonth.sort((a, b) => new Date(b.date) > new Date(a.date));
+      sortBy(key) {
+        if (key === this.sortKey) {
+          this.isSortedAscending = !this.isSortedAscending;
         } else {
-          return this.allEntriesPerMonth.sort((a, b) => new Date(b.date) < new Date(a.date));
+          this.sortKey = key;
+          this.isSortedAscending = true;
         }
       },
       getBalance(type) {
-        return this.allEntriesPerMonth.filter(transaction => transaction.account === type || type === undefined)
+        return this.allEntriesPerStatementOfAccountId.filter(transaction => transaction.account === type || type === undefined)
             .reduce((acc, ele) => acc + ele.amount, 0)
             .toFixed(2)
       }

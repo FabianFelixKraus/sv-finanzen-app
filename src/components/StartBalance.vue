@@ -5,7 +5,7 @@
 <template>
   <h2>{{$t("startBalance")}}</h2>
   <div v-if="!editMode">
-    <p>{{ number }}</p>
+    <p>{{ number }} Euro</p>
     <button @click="toggleEditMode">Edit</button>
   </div>
   <div v-else>
