@@ -5,7 +5,6 @@ import { createI18n } from 'vue-i18n';
 import de from './locales/de.json';
 import en from './locales/en.json';
 
-
 i18next
     .use(Backend)
     .use(LanguageDetector)
@@ -16,7 +15,10 @@ i18next
             escapeValue: false
         },
         backend: {
-            loadPath: '/locales/{{lng}}.json'
+            loadPath: '/locales/{{lng}}.json',
+            load: 'languageOnly', // Suppress warning for specific language not found
+            allowMultiLoading: false, // Suppress loading multiple resources
+            crossDomain: false, // Suppress CORS warning
         }
     });
 

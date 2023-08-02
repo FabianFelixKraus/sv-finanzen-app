@@ -186,7 +186,5 @@ import EditTransaction from "@/components/EditTransaction.vue";
 </script>
 
 <style scoped>
-  .table-striped tr:nth-child(2n+1) {
-    background-color: #f2f2f2;
-  }
+
 </style>

@@ -8,7 +8,9 @@
         <div class="hr"></div>
         <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
         <div class="hr"></div>
-        <ShowAllEntries class="center-content" :allEntries="allTransactions" @getNewTransaction="handleNewTransactions" />
+        <div>
+          <ShowAllEntries :allEntries="allTransactions" />
+        </div>
         <ExcelExporter :transactions="allTransactions" />
         <div class="hr"></div>
       </div>
@@ -17,12 +19,13 @@
  </template>
 
 <script>
-import axios from "axios";
+
 import AddEntryForm from "@/components/AddEntryForm.vue";
 import ShowAllEntries from "@/components/ShowAllEntries.vue";
 import Header from "@/components/Header.vue";
 import SelectTemplate from "@/components/SelectTemplate.vue";
 import ExcelExporter from "@/components/ExcelExporter.vue";
+import {fetchTransactions, postTransaction} from "@/services/apiService";
 
 export default {
   components: {
@@ -50,8 +53,8 @@ export default {
     }
   },
   methods: {
-    handleNewTransactions (newTransaction) {
-      axios.post("http://localhost:3000/transactions", newTransaction)
+    handleNewTransactions(newTransaction) {
+      postTransaction(newTransaction)
           .then((response) => {
             console.log(response);
             this.fetchTransactions();
@@ -61,7 +64,7 @@ export default {
           });
     },
     fetchTransactions() {
-      axios.get("http://localhost:3000/transactions")
+      fetchTransactions()
           .then((response) => {
             this.allTransactions = response.data;
           })
@@ -74,7 +77,7 @@ export default {
     }
   },
   created() {
-    axios.get("http://localhost:3000/transactions")
+    fetchTransactions()
         .then((response) => {
           this.allTransactions = response.data;
         })

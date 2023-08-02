@@ -176,9 +176,9 @@
         }
       }
     },
+    emits: ["changeCurrentInput"],
     methods: {
       selectTemplate(name) {
-        console.log("datatopass", this.templates[name])
         this.selectedTemplate = name;
         this.$emit("changeCurrentInput", this.templates[this.selectedTemplate]);
       }

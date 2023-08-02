@@ -11,6 +11,10 @@ h1, .center-content {
   white-space: nowrap;
 }
 
+.table-striped tr:nth-child(2n+1) {
+  background-color: #f2f2f2;
+}
+
 .hr {
   height:2px;
   width: 100%;
