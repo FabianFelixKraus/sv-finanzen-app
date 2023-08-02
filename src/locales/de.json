@@ -17,6 +17,7 @@
   "empty": "Leer",
   "expense": "Ausgabe",
   "expense/income": "E / A",
+  "loadingMessage": "Transaktion wird verarbeitet",
   "expenseIncomeDescription": "Einnahme (E) / Ausgabe (A)",
   "expenseIncome": "E / A",
   "formValidationErrorMessage": "Bitte fülle alle Felder korrekt aus",

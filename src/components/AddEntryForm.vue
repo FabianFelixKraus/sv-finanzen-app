@@ -61,8 +61,17 @@
       </div>
       <div class="row">
         <div class="col-12 center-content ">
-          <button id="submitButton" type="submit" @click.prevent="handleSubmit" class="btn btn-primary submit-button">
-            {{ $t("submitNewTransaction") }}
+          <button
+              id="submitButton"
+              type="submit"
+              @click.prevent="handleSubmit"
+              class="btn btn-primary submit-button"
+              :disabled="loading"
+          >
+            <span v-if="loading">
+              <i class="loading-spinner"></i> {{ $t("loadingMessage") }}
+            </span>
+            <span v-else>{{ $t("submitNewTransaction") }}</span>
           </button>
         </div>
       </div>
@@ -107,6 +116,7 @@ export default {
       taxClass: '', //Umsatzsteuer,
       taxGroup: '', //WBE, ...
       taxRate: 0,
+      loading: false
     };
   },
   methods: {
@@ -155,7 +165,16 @@ export default {
           "taxGroup": this.inputData.taxGroup,
           "taxRate": this.inputData.taxRate
         };
-        this.$emit("getNewTransaction", newTransaction);
+        this.loading = true;
+        try {
+          await new Promise(resolve => setTimeout(resolve, 300));
+          this.$emit("getNewTransaction", newTransaction);
+        } catch (error) {
+          console.error(error);
+        } finally {
+          this.loading = false; // Set loading back to false after the async call completes
+        }
+
       } else {
         alert(this.$t("formValidationErrorMessage"))
       }

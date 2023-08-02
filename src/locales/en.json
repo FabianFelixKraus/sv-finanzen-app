@@ -10,6 +10,7 @@
   "changeOfBalance": "Change",
   "date": "Date",
   "save": "Save",
+  "loadingMessage": "Transaction is processed",
   "deposit": "Deposit",
   "description": "Description",
   "electricityBill": "Naturstrom Handel",
