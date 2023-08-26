@@ -49,5 +49,7 @@
   "vodafone": "Vodafone",
   "sumUp": "Sum Up",
   "payOne": "PAYONE",
-  "rentStudentWERK": "Rent"
+  "rentStudentWERK": "Rent",
+  "noTransactionsFound": "No transactions have been found. Check connection to the database.",
+  "close": "Close"
 }

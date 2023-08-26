@@ -1,17 +1,23 @@
 <template>
   <div class="container">
+
+    <div class="bottom-right-circular-button">
+      <OpenDialog :currentInput="currentInput" @getNewTransaction="handleNewTransactions"/>
+    </div>
+
     <div class="row">
       <Header />
       <div class="col-12">
         <div class="hr"></div>
         <SelectTemplate @changeCurrentInput="changeCurrentInputByGivenTemplate" />
         <div class="hr"></div>
-        <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
-        <div class="hr"></div>
         <ShowAllEntries
             v-if="allTransactions.length > 0"
             :allEntries="allTransactions"
         />
+        <div v-else>
+          {{$t("noTransactionsFound")}}
+        </div>
         <ExcelExporter :transactions="allTransactions" />
         <div class="hr"></div>
       </div>
@@ -21,15 +27,17 @@
 
 <script>
 
-import AddEntryForm from "@/components/AddEntryForm.vue";
+import AddEntryForm from "@/components/AddTransactionDialog.vue";
 import ShowAllEntries from "@/components/ShowAllEntries.vue";
 import Header from "@/components/Header.vue";
 import SelectTemplate from "@/components/SelectTemplate.vue";
 import ExcelExporter from "@/components/ExcelExporter.vue";
 import {fetchTransactions, postTransaction} from "@/services/apiService";
+import OpenDialog from "@/components/OpenDialog.vue";
 
 export default {
   components: {
+    OpenDialog,
     AddEntryForm,
     ShowAllEntries,
     Header,
@@ -88,3 +96,15 @@ export default {
   },
 }
 </script>
+
+<style>
+  .bottom-right-circular-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    border-radius: 90%;
+    background-color: #007bff; /* Change this to your desired background color */
+    color: white;
+    font-size: 30px;
+  }
+</style>

@@ -50,5 +50,7 @@
   "sum": "Summe",
   "sumUp": "Sum Up",
   "payOne": "PAYONE",
-  "rentStudentWERK": "Miete"
+  "rentStudentWERK": "Miete",
+  "noTransactionsFound": "Keine Transaktionen gefunden. Überprüfe die Verbindung zur Datenbank",
+  "close": "Schließen"
 }
