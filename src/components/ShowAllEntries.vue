@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="center-content">{{$t("showAllTransactions")}}</h2>
+    <h1 class="center-content">{{$t("cashBook")}}</h1>
     <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
     <div v-if="calculationsDone">
       <div v-for="(entries, index) in createStatementOfAccountIdArrays" :key="index">
