@@ -32,8 +32,8 @@ npm run build
 ## Feature ideas
 
 - allow "." and "," for input of amount
-- Add Component for Dropdown menu with autofill for dropdown content values
-- Add loading screen after adding transaction
+- When transaction.isExpense == true, then only some taxClass can be possible, the same for false.
+- Add Component for Dropdown menu with autofill for content values
 - Check if last added transaction and newly added transactions are equal,
 if so create Dialog to ask if this transaction should really be added
 - Calculate the current balance of each account after each month and each statementofAccountId

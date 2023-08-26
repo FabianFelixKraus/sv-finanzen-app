@@ -136,7 +136,7 @@ export default {
       this.location = event.target.value;
     },
     addAmount(event) {
-      this.amount = event.target.value;
+      this.amount = event.target.value.replace(",",".");
     },
     addAccount(event) {
       this.account = event.target.value;

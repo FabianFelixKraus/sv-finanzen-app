@@ -8,9 +8,10 @@
         <div class="hr"></div>
         <AddEntryForm :currentInput="currentInput" class="center-content" @getNewTransaction="handleNewTransactions"/>
         <div class="hr"></div>
-        <div>
-          <ShowAllEntries :allEntries="allTransactions" />
-        </div>
+        <ShowAllEntries
+            v-if="allTransactions.length > 0"
+            :allEntries="allTransactions"
+        />
         <ExcelExporter :transactions="allTransactions" />
         <div class="hr"></div>
       </div>
@@ -54,7 +55,7 @@ export default {
   },
   methods: {
     handleNewTransactions(newTransaction) {
-      postTransaction(newTransaction)
+      return postTransaction(newTransaction)
           .then((response) => {
             console.log(response);
             this.fetchTransactions();
@@ -64,7 +65,7 @@ export default {
           });
     },
     fetchTransactions() {
-      fetchTransactions()
+      return fetchTransactions()
           .then((response) => {
             this.allTransactions = response.data;
           })
@@ -77,7 +78,7 @@ export default {
     }
   },
   created() {
-    fetchTransactions()
+    return fetchTransactions()
         .then((response) => {
           this.allTransactions = response.data;
         })
@@ -87,8 +88,3 @@ export default {
   },
 }
 </script>
-<!--TODO-->
-<!--Click auf Hinzufügen macht sprung des cursers in Kontoauszugsnummer feld-->
-<!--Shortcuts einbauen für templates-->
-<!--Form Validation Einfügen-->
-<!--Template Kaution-->

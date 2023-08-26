@@ -1,6 +1,5 @@
 <script setup>
-
-import EditTransaction from "@/components/EditTransaction.vue";
+import TransactionRow from "@/components/TransactionRow.vue";
 </script>
 
 <template>
@@ -30,63 +29,11 @@ import EditTransaction from "@/components/EditTransaction.vue";
     </tr>
     </thead>
     <tbody class="table-striped">
-      <tr v-for="(entry, index) in sortedDates" :key="index">
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.statementOfAccountId }}</template>
-          <input v-else type="number" v-model="editedEntries[index].statementOfAccountId" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ formatDate(entry.date) }}</template>
-          <input v-else type="date" v-model="editedEntries[index].date" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.description }}</template>
-          <input v-else type="text" v-model="editedEntries[index].description" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.isExpense ? $t('expense') : $t('income') }}</template>
-          <select v-else v-model="editedEntries[index].isExpense">
-            <option value="true">Expense</option>
-            <option value="false">Income</option>
-          </select>
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.location }}</template>
-          <input v-else type="text" v-model="editedEntries[index].location" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.amount }}</template>
-          <input v-else type="number" v-model="editedEntries[index].amount" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.account }}</template>
-          <input v-else type="text" v-model="editedEntries[index].account" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.taxClass }}</template>
-          <input v-else type="text" v-model="editedEntries[index].taxClass" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.taxGroup }}</template>
-          <input v-else type="text" v-model="editedEntries[index].taxGroup" />
-        </td>
-        <td>
-          <template v-if="!entry.isTransactionEdited">{{ entry.taxRate }}</template>
-          <input v-else type="number" v-model="editedEntries[index].taxRate" />
-        </td>
-        <td>
-          <EditTransaction :editIsOpened="entry.isTransactionEdited" :indexOfTransactionToEdit="index" @update:editIsOpened="updateRowEditedStatus"/>
-        </td>
-        <td>
-          <button @click="deleteTransaction(entry._id, index)">
-            <img src="/trash.svg" alt="Delete" width="16" height="16">
-          </button>
-        </td>
-      </tr>
+    <tr v-for="(entry, index) in sortedDates" :key="entry._id">
+      <TransactionRow :entry="entry" :rowIndex="index" />
+    </tr>
     </tbody>
   </table>
-
-
 </template>
 
 <script>
@@ -129,24 +76,10 @@ import EditTransaction from "@/components/EditTransaction.vue";
               return b[this.sortKey].localeCompare(a[this.sortKey]);
             }
           }
-
-        }
-        )
+        });
       }
     },
     methods: {
-      updateRowEditedStatus(updatedIsTransactionEditedStatus, indexOfTransactionToEdit, action) {
-        if (action === "save") {
-          this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit] = this.editedEntries[indexOfTransactionToEdit];
-          axios.put("http://localhost:3000/transactions/" + this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit]._id, this.allEntriesPerMonth[indexOfTransactionToEdit])
-              .then(response => console.log(response))
-              .catch(error => console.log(error));
-        }
-        else if (action === "cancel") {
-          this.editedEntries = this.allEntriesPerStatementOfAccountId;
-        }
-        this.allEntriesPerStatementOfAccountId[indexOfTransactionToEdit].isTransactionEdited = updatedIsTransactionEditedStatus;
-      },
       deleteTransaction(id, index) {
         console.log("id", id)
         axios.delete("http://localhost:3000/transactions/" + id)
@@ -175,11 +108,6 @@ import EditTransaction from "@/components/EditTransaction.vue";
           this.sortKey = key;
           this.isSortedAscending = true;
         }
-      },
-      getBalance(type) {
-        return this.allEntriesPerStatementOfAccountId.filter(transaction => transaction.account === type || type === undefined)
-            .reduce((acc, ele) => acc + ele.amount, 0)
-            .toFixed(2)
       }
     }
   }

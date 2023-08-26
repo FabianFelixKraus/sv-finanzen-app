@@ -19,10 +19,11 @@
 <script>
   export default {
     name: 'EditTransaction',
-    props: ["editIsOpened", "indexOfTransactionToEdit"],
+    props: ["editIsOpened"],
     methods: {
       toggleEditTransaction(action) {
-        this.$emit('update:editIsOpened', !this.editIsOpened, this.indexOfTransactionToEdit, action);
+        console.log(action);
+        this.$emit('update:editIsOpened', !this.editIsOpened, action);
       }
     }
   }

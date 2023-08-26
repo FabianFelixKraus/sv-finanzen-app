@@ -1,67 +1,71 @@
 <template>
-  <h2 class="center-content">{{$t("showAllTransactions")}}</h2>
-  <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
-    <div v-for="(allEntriesPerStatementOfAccountId, index) in createStatementOfAccountIdArrays" :key="index">
-      <ShowAllEntriesPerStatementOfAccountId :allEntriesPerStatementOfAccountId="allEntriesPerStatementOfAccountId" />
-      <SummaryOfTransactions :transactionsToSummarize="allEntriesPerStatementOfAccountId" :startBalance="startBalances[index]"/>
+  <div>
+    <h2 class="center-content">{{$t("showAllTransactions")}}</h2>
+    <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
+    <div v-if="calculationsDone">
+      <div v-for="(entries, index) in createStatementOfAccountIdArrays" :key="index">
+        <ShowAllEntriesPerStatementOfAccountId :allEntriesPerStatementOfAccountId="entries" />
+        <SummaryOfTransactions
+            :transactionsToSummarize="entries"
+            :startBalance="startBalances[index]"
+        />
+      </div>
     </div>
+  </div>
 </template>
+
 <script>
 import StartBalance from "@/components/StartBalance.vue";
-import showAllEntriesPerStatementOfAccountId from "@/components/ShowAllEntriesPerStatementOfAccountId.vue";
+import ShowAllEntriesPerStatementOfAccountId from "@/components/ShowAllEntriesPerStatementOfAccountId.vue";
 import SummaryOfTransactions from "@/components/SummaryOfTransactions.vue";
 
 export default {
   name: "ShowAllEntries",
   components: {
     SummaryOfTransactions,
-    ShowAllEntriesPerStatementOfAccountId: showAllEntriesPerStatementOfAccountId,
+    ShowAllEntriesPerStatementOfAccountId,
     StartBalance
   },
   props: ["allEntries"],
   data() {
     return {
       isSortedAscending: true,
-      startBalances: [27972.64]
-    }
+      startBalances: [27927.64],
+      calculationsDone: false
+    };
   },
   computed: {
-    createStatementOfAccountIdArrays: function() {
-      // Use reduce to group the objects by month
+    createStatementOfAccountIdArrays() {
       const statementOfAccountIdArrays = this.allEntries.reduce((acc, obj) => {
-        // Get the statementOfAccountId from the statementOfAccountId attribute
         const statementOfAccountId = obj.statementOfAccountId;
-
-        // If the statementOfAccountId doesn't exist in the accumulator, create a new array for it
-        if (!acc[statementOfAccountId]) {
-          acc[statementOfAccountId] = [];
-        }
-
-        // Push the object into the corresponding month array
+        acc[statementOfAccountId] = acc[statementOfAccountId] || [];
         acc[statementOfAccountId].push(obj);
-
         return acc;
       }, {});
-      // Convert the statementOfAccountIdArray object into an array of arrays
       return Object.values(statementOfAccountIdArrays);
     }
   },
   mounted() {
-    this.calculateBalances();
+    this.calculateBalancesAsync();
   },
   methods: {
     onStartBalanceUpdate(value) {
       this.startBalances[0] = value;
     },
-    calculateDifference(transactions) {
-      return transactions.reduce((acc, ele) => acc + ele.amount * (-1 ? ele.isExpense : 1), 0);
+    async calculateBalancesAsync() {
+      await this.calculateBalances(); // Wait for calculations to complete
+      this.calculationsDone = true;
     },
     calculateBalances() {
-      const statementOfAccountIds = this.createStatementOfAccountIdArrays;
-      for (let i = 1; i < statementOfAccountIds.length; i++) {
-        this.startBalances.push(this.startBalances[i-1] + this.calculateDifference(statementOfAccountIds[i]))
+      for (const [index, entries] of this.createStatementOfAccountIdArrays.entries()) {
+        const difference = this.calculateDifference(entries);
+        const newBalance = this.startBalances[index] + difference;
+        this.startBalances.push(newBalance)
       }
+    },
+    calculateDifference(transactions) {
+      return transactions.reduce((acc, ele) => acc + ele.amount * (ele.isExpense ? -1 : 1), 0);
     }
   }
-}
+};
 </script>
