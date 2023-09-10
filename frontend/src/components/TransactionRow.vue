@@ -1,6 +1,6 @@
 <script setup>
 
-import EditTransaction from "@/components/EditTransaction.vue";
+import EditTransaction from "./EditTransaction.vue";
 </script>
 
 <template>

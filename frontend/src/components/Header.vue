@@ -1,13 +1,14 @@
 <script setup>
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 </script>
+
 <template>
-  <div class="col-11">
-    <h1 style="margin-top: 1em">{{$t("addNewTransaction")}}</h1>
-  </div>
-  <div class="col-1 center-content" @click="toggleLanguage">
-    <span class="fi" :class="['fi-' + flagIconClass, 'image-scaling']" :title="explanationText"></span>
-  </div>
+  <div class="d-flex justify-content-between align-items-center start-end-content" @click="toggleLanguage">
+    <h1>{{$t("cashBook")}}</h1>
+    <div class="">
+      <div class="fi" :class="['fi-' + flagIconClass]" :title="explanationText" />
+    </div>
+    </div>
 </template>
 
 <script>
@@ -42,8 +43,3 @@ export default {
   }
 }
 </script>
-<style scoped>
-.image-scaling {
-  width: 50%;
-}
-</style>

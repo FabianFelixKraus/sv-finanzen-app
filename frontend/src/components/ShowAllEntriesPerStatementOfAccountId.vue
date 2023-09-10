@@ -1,5 +1,5 @@
 <script setup>
-import TransactionRow from "@/components/TransactionRow.vue";
+import TransactionRow from "./TransactionRow.vue";
 </script>
 
 <template>
@@ -20,10 +20,12 @@ import TransactionRow from "@/components/TransactionRow.vue";
       <th scope="col"><button @click="sortBy('taxRate')">{{$t("taxRate")}}</button></th>
       <th>
         {{$t("edit")}}
+        <br />
         <img src="/pencil.svg" alt="Edit" width="16" height="16">
       </th>
       <th>
         {{$t("delete")}}
+        <br />
         <img src="/trash.svg" alt="Delete" width="16" height="16">
       </th>
     </tr>
@@ -81,7 +83,6 @@ import TransactionRow from "@/components/TransactionRow.vue";
     },
     methods: {
       deleteTransaction(id, index) {
-        console.log("id", id)
         axios.delete("http://localhost:3000/transactions/" + id)
             .then(response => {
               console.log(response);

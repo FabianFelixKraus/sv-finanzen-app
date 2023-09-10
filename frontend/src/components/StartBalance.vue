@@ -1,7 +1,7 @@
 <template>
   <div class="row align-items-end">
     <div class="col">
-      <h2>{{$t("startBalance")}}</h2>
+      <h5>{{$t("startBalance")}}</h5>
     </div>
     <div class="col" v-if="!editMode">
       <div class="d-flex justify-content-end align-items-center">

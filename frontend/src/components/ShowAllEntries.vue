@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 class="center-content">{{$t("cashBook")}}</h1>
     <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
     <div v-if="calculationsDone">
       <div v-for="(entries, index) in createStatementOfAccountIdArrays" :key="index">
@@ -15,9 +14,9 @@
 </template>
 
 <script>
-import StartBalance from "@/components/StartBalance.vue";
-import ShowAllEntriesPerStatementOfAccountId from "@/components/ShowAllEntriesPerStatementOfAccountId.vue";
-import SummaryOfTransactions from "@/components/SummaryOfTransactions.vue";
+import StartBalance from "./StartBalance.vue";
+import ShowAllEntriesPerStatementOfAccountId from "./ShowAllEntriesPerStatementOfAccountId.vue";
+import SummaryOfTransactions from "./SummaryOfTransactions.vue";
 
 export default {
   name: "ShowAllEntries",
