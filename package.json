@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "build": "concurrently \"npm run frontendBuild\" \"npm run backend\"",
     "frontend": "cd frontend && npm run dev",
+    "frontendBuild": "cd frontend && npm run build",
     "backend": "cd backend && node server.js",
     "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
