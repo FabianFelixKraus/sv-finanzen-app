@@ -6,7 +6,7 @@ const mongoose = require("mongoose")
 const cors = require("cors");
 
 mongoose
-    .connect(process.env.DATABASE_URL, {useNewUrlParser:true})
+    .connect(process.env.DATABASE_CONNECTION_STRING, {useNewUrlParser:true})
     .then(() => console.log("Connected to Database"))
     .catch((error) => console.error("Database connection error:", error))
 
