@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "concurrently \"npm run frontendBuild\" \"npm run backend\"",
     "frontendBuild": "vite build",
-    "backend": "cd .. && cd backend && node server.js",
+    "backend": "cd .. && cd backend && npm install && node server.js",
     "preview": "vite preview"
   },
   "dependencies": {
