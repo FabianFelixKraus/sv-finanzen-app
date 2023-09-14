@@ -59,7 +59,7 @@ export default {
       password: "", // Store the entered password
       isPasswordEntered: false, // Flag to track if the correct password is entered
       showPasswordPrompt: false, // Flag to show/hide the password prompt
-      correctPassword: "a", // Replace with your actual password
+      correctPassword: "87Irl6CDgGvGck3yU3mEyJnFYO2ojbFDVEjhZ8RG", // Replace with your actual password
     };
   },
   methods: {
