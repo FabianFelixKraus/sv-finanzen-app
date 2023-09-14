@@ -21,7 +21,7 @@
   "expense": "Ausgabe",
   "expense/income": "E / A",
   "expenseIncome": "E / A",
-  "expenseIncomeDescription": "Einnahme (E) / Ausgabe (A)",
+  "expenseIncomeDescription": "Einnahme/Ausgabe",
   "exportToExcel": "Als Excel exportieren",
   "formValidationErrorMessage": "Bitte fülle alle Felder korrekt aus",
   "from": "vom",
