@@ -26,4 +26,12 @@ coverage
 *.njsproj
 *.sln
 *.sw?
-*.env
+
+#frontend
+/frontend/package-lock.json
+/frontend/node_modules
+
+#backend
+/backend/.env
+/backend/package-lock.json
+/backend/node_modules
