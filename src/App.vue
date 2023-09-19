@@ -107,6 +107,11 @@ export default {
   },
   created() {
     // Fetch transactions only if the correct password is entered
+    console.log(`Frontend is sending Requests to backendURL: ${
+      import.meta.env.MODE === 'production'
+        ? import.meta.env.VUE_APP_BACKEND_URL_PROD
+        : import.meta.env.VUE_APP_BACKEND_URL_DEV}`
+    );
     if (this.isPasswordEntered) {
       this.fetchTransactions();
     }

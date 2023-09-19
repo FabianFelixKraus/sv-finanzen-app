@@ -39,7 +39,7 @@ import TransactionRow from "./TransactionRow.vue";
 </template>
 
 <script>
-  import axios from "axios";
+  import {deleteTransactionById} from "@/services/apiService";
 
   export default {
     name: "ShowAllEntriesPerStatementOfAccountId",
@@ -83,12 +83,12 @@ import TransactionRow from "./TransactionRow.vue";
     },
     methods: {
       deleteTransaction(id, index) {
-        axios.delete("http://localhost:3000/transactions/" + id)
-            .then(response => {
-              console.log(response);
-              this.allEntriesPerStatementOfAccountId.splice(index, 1);
-            })
-            .catch(error => console.log(error));
+        deleteTransactionById(id)
+          .then(response => {
+            console.log(response);
+            this.allEntriesPerStatementOfAccountId.splice(index, 1);
+          })
+          .catch(error => console.log(error));
       },
       formatDate(dateString) {
         // Create a Date object from the input string

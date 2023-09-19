@@ -1,20 +1,26 @@
 {
   "name": "sv-finanzen",
   "version": "1.0.0",
-  "description": "A full-stack Vue.js and Express.js application for the cashbook of SV",
-  "main": "server.js",
+  "private": true,
   "scripts": {
-    "start": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "build": "concurrently \"npm run frontendBuild\" \"npm run backend\"",
-    "frontend": "cd frontend && npm run dev",
-    "frontendBuild": "cd frontend && npm install && npm run build",
-    "backend": "cd backend && node server.js",
-    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "author": "Fabian Kraus",
-  "license": "UNLICENSED",
-  "devDependencies": {
-    "concurrently": "^8.2.1"
+  "dependencies": {
+    "@vitejs/plugin-vue": "^4.1.0",
+    "axios": "^1.4.0",
+    "bootstrap": "^5.2.3",
+    "dotenv": "^16.3.1",
+    "esbuild": "^0.18.11",
+    "i18next": "^22.4.14",
+    "i18next-browser-languagedetector": "^7.0.1",
+    "i18next-xhr-backend": "^3.2.2",
+    "jquery": "^3.6.4",
+    "popper.js": "^1.16.1",
+    "vite": "^4.2.1",
+    "vue": "^3.2.47",
+    "vue-i18n": "^9.2.2",
+    "xlsx": "^0.18.5"
   }
 }
