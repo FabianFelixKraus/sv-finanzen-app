@@ -1,10 +1,14 @@
 <template>
   <div class="container">
-    <!-- Add a button to trigger the password prompt -->
-    <button @click="promptForPassword" class="password-button">Enter Password</button>
-
+    <div v-if="!isAuthorized" class="flex-row">
+      <button @click="promptForPassword" class="password-button">Enter Password</button>
+      <div v-if="showPasswordPrompt" class="password-prompt">
+        <input v-model="password" type="password" placeholder="Enter Password" />
+        <button @click="checkPassword">Submit</button>
+      </div>
+    </div>
     <!-- Use v-if to conditionally display content -->
-    <div v-if="isPasswordEntered">
+    <div v-else>
       <!-- Your existing content goes here -->
       <div class="bottom-right-circular-button">
         <OpenDialog @getNewTransaction="handleNewTransactions"/>
@@ -24,12 +28,6 @@
           <div class="hr"></div>
         </div>
       </div>
-    </div>
-
-    <!-- Password prompt dialog -->
-    <div v-if="showPasswordPrompt" class="password-prompt">
-      <input v-model="password" type="password" placeholder="Enter Password" />
-      <button @click="checkPassword">Submit</button>
     </div>
   </div>
 </template>
@@ -57,15 +55,16 @@ export default {
     return {
       allTransactions: [],
       password: "", // Store the entered password
-      isPasswordEntered: false, // Flag to track if the correct password is entered
+      isAuthorized: false, // Flag to track if the correct password is entered
       showPasswordPrompt: false, // Flag to show/hide the password prompt
+      isLoggedIn: false,
       correctPassword: "87Irl6CDgGvGck3yU3mEyJnFYO2ojbFDVEjhZ8RG", // Replace with your actual password
     };
   },
   methods: {
     handleNewTransactions(newTransaction) {
       // Check if the correct password is entered
-      if (this.isPasswordEntered) {
+      if (this.isAuthorized) {
         return postTransaction(newTransaction)
             .then((response) => {
               console.log(response);
@@ -79,7 +78,7 @@ export default {
     },
     fetchTransactions() {
       // Check if the correct password is entered
-      if (this.isPasswordEntered) {
+      if (this.isAuthorized) {
         return fetchTransactions()
             .then((response) => {
               this.allTransactions = response.data;
@@ -95,7 +94,7 @@ export default {
     checkPassword() {
       // Check if the entered password is correct
       if (this.password === this.correctPassword) {
-        this.isPasswordEntered = true;
+        this.isAuthorized = true;
         this.showPasswordPrompt = false; // Hide the password prompt
         // Fetch transactions after the password is entered correctly
         this.fetchTransactions();
@@ -112,7 +111,7 @@ export default {
         ? import.meta.env.VUE_APP_BACKEND_URL_PROD
         : import.meta.env.VUE_APP_BACKEND_URL_DEV}`
     );
-    if (this.isPasswordEntered) {
+    if (this.isAuthorized) {
       this.fetchTransactions();
     }
   },

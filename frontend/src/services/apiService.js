@@ -1,10 +1,7 @@
 import axios from "axios";
 
 // Determine the backend URL based on the environment
-const BASE_URL_BACKEND =
-    import.meta.env.PROD
-        ? import.meta.env.VITE_APP_BACKEND_URL_PROD
-        : import.meta.env.VITE_APP_BACKEND_URL_DEV;
+const BASE_URL_BACKEND = "http://localhost:80";
 
 // Function to post a new transaction
 export function postTransaction(newTransaction) {

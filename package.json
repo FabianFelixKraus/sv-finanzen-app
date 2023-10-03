@@ -1,26 +1,21 @@
 {
-  "name": "sv-finanzen",
+  "name": "sv-finanzen-server",
   "version": "1.0.0",
-  "private": true,
+  "description": "The backend of sv finanzen",
+  "main": "index.js",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "startDev": "nodemon server.js",
+    "start": "cd frontend && npm run build && cd .. && node server.js"
   },
+  "author": "Fabian Kraus",
+  "license": "UNLICENSED",
   "dependencies": {
-    "@vitejs/plugin-vue": "^4.1.0",
-    "axios": "^1.4.0",
-    "bootstrap": "^5.2.3",
-    "dotenv": "^16.3.1",
-    "esbuild": "^0.18.11",
-    "i18next": "^22.4.14",
-    "i18next-browser-languagedetector": "^7.0.1",
-    "i18next-xhr-backend": "^3.2.2",
-    "jquery": "^3.6.4",
-    "popper.js": "^1.16.1",
-    "vite": "^4.2.1",
-    "vue": "^3.2.47",
-    "vue-i18n": "^9.2.2",
-    "xlsx": "^0.18.5"
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "mongoose": "^7.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^16.0.3",
+    "nodemon": "^2.0.22"
   }
 }
