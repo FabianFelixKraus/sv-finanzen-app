@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 
-mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, serverSelectionTimeoutMS: 60000 })
     .then(() => console.log("Connected to Database"))
     .catch((error) => console.error("Database connection error:", error));
 
