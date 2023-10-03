@@ -21,7 +21,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 const transactionsRouter = require("./routes/transactions");
-app.use("transactions", transactionsRouter);
+app.use("/transactions", transactionsRouter);
 
 // Serve the static frontend files from the /frontend/dist directory
 app.use(express.static(path.join(__dirname, 'frontend', 'dist')));

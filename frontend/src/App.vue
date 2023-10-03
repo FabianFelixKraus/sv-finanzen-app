@@ -16,10 +16,12 @@
 
       <div class="row">
         <Header />
+        <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
         <div class="col-12">
           <ShowAllEntries
               v-if="allTransactions.length > 0"
               :allEntries="allTransactions"
+              :startBalances="startBalances"
           />
           <div v-else>
             {{$t("noTransactionsFound")}}
@@ -41,6 +43,7 @@ import SelectTemplate from "./components/SelectTemplate.vue";
 import ExcelExporter from "./components/ExcelExporter.vue";
 import { fetchTransactions, postTransaction } from "./services/apiService";
 import OpenDialog from "./components/OpenDialog.vue";
+import StartBalance from "@/components/StartBalance.vue";
 
 export default {
   components: {
@@ -50,10 +53,13 @@ export default {
     Header,
     SelectTemplate,
     ExcelExporter,
+    StartBalance
   },
   data() {
     return {
       allTransactions: [],
+      startBalances: [27927.64],
+      calculationsDone: false,
       password: "", // Store the entered password
       isAuthorized: false, // Flag to track if the correct password is entered
       showPasswordPrompt: false, // Flag to show/hide the password prompt
@@ -61,31 +67,46 @@ export default {
       correctPassword: "87Irl6CDgGvGck3yU3mEyJnFYO2ojbFDVEjhZ8RG", // Replace with your actual password
     };
   },
+  computed: {
+    shouldFetchTransactions() {
+      // Check if the user is authorized and calculations are done
+      return this.isAuthorized && this.calculationsDone;
+    },
+  }
+  ,
+  watch: {
+    shouldFetchTransactions(newValue) {
+      if (newValue) {
+        // Fetch transactions when authorized and calculations are done
+        this.fetchTransactions();
+      }
+    },
+  },
   methods: {
     handleNewTransactions(newTransaction) {
       // Check if the correct password is entered
       if (this.isAuthorized) {
         return postTransaction(newTransaction)
-            .then((response) => {
-              console.log(response);
-              // Fetch transactions again after a new transaction is added
-              this.fetchTransactions();
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .then((response) => {
+            console.log(response);
+            // Fetch transactions again after a new transaction is added
+            this.fetchTransactions();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     fetchTransactions() {
       // Check if the correct password is entered
       if (this.isAuthorized) {
         return fetchTransactions()
-            .then((response) => {
-              this.allTransactions = response.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .then((response) => {
+            this.allTransactions = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     promptForPassword() {
@@ -103,18 +124,29 @@ export default {
         this.password = ""; // Clear the input field
       }
     },
-  },
-  created() {
-    // Fetch transactions only if the correct password is entered
-    console.log(`Frontend is sending Requests to backendURL: ${
-      import.meta.env.MODE === 'production'
-        ? import.meta.env.VUE_APP_BACKEND_URL_PROD
-        : import.meta.env.VUE_APP_BACKEND_URL_DEV}`
-    );
-    if (this.isAuthorized) {
-      this.fetchTransactions();
+    async calculateBalancesAsync() {
+      console.log("ja")
+      await this.calculateBalances(); // Wait for calculations to complete
+      console.log("calculationsDone")
+      this.calculationsDone = true;
+    },
+    async calculateBalances() {
+      return new Promise((resolve) => {
+        for (const [index, entries] of this.createStatementOfAccountIdArrays.entries()) {
+          const difference = this.calculateDifference(entries);
+          const newBalance = this.startBalances[index] + difference;
+          this.startBalances.push(newBalance);
+        }
+        resolve(); // Resolve the promise when calculations are done
+      });
+    },
+    calculateDifference(transactions) {
+      return transactions.reduce((acc, ele) => acc + ele.amount * (ele.isExpense ? -1 : 1), 0);
+    },
+    onStartBalanceUpdate(value) {
+      this.startBalances[0] = value;
     }
-  },
+  }
 };
 </script>
 
