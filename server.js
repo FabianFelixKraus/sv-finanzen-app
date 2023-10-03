@@ -12,7 +12,7 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, serverSelect
 
 app.use(express.json());
 
-const frontendURL = "https://sv-finanzen-app.azurewebsites.net";
+const frontendURL = "https://sv-finanzen-webapp.azurewebsites.net";
 
 const corsOptions = {
     origin: frontendURL,

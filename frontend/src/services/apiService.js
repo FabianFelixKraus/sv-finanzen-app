@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Determine the backend URL based on the environment
 // const BASE_URL_BACKEND = "http://localhost";
-const BASE_URL_BACKEND = "https://sv-finanzen-app.azurewebsites.net";
+const BASE_URL_BACKEND = "https://sv-finanzen-webapp.azurewebsites.net";
 
 // Function to post a new transaction
 export function postTransaction(newTransaction) {
