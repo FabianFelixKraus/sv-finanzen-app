@@ -3,7 +3,10 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const cors = require("cors")
 const path = require("path");
+
+const frontendURL = "https://sv-finanzen-app.azurewebsites.net"
 
 mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
     .then(() => console.log("Connected to Database"))
@@ -15,6 +18,19 @@ const transactionsRouter = require("./routes/transactions");
 
 // Serve the static frontend files from the /frontend/dist directory
 app.use(express.static("frontend/dist"));
+
+
+const corsOptions = {
+    origin: frontendURL
+};
+
+app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", frontendURL);
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 app.use("/transactions", transactionsRouter);
 
