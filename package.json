@@ -4,7 +4,7 @@
   "description": "The backend of sv finanzen",
   "main": "index.js",
   "scripts": {
-    "startDev": "nodemon server.js",
+    "startDev": "cd frontend && npm run build && cd .. && nodemon server.js",
     "start": "cd frontend && npm install && npm run build && cd .. && node server.js"
   },
   "author": "Fabian Kraus",
