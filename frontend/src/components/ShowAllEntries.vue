@@ -3,7 +3,11 @@
     <StartBalance :startBalance="startBalances[0]" @update:startBalance="onStartBalanceUpdate" />
     <div v-if="calculationsDone">
       <div v-for="(entries, index) in createStatementOfAccountIdArrays" :key="index">
-        <ShowAllEntriesPerStatementOfAccountId :allEntriesPerStatementOfAccountId="entries" />
+        <ShowAllEntriesPerStatementOfAccountId
+            :allEntriesPerStatementOfAccountId="entries"
+            @edit="editAllEntriesPerStatementOfAccountId"
+            @delete="deleteEntryOfAllEntries"
+        />
         <SummaryOfTransactions
             :transactionsToSummarize="entries"
             :startBalance="startBalances[index]"
@@ -17,6 +21,7 @@
 import StartBalance from "./StartBalance.vue";
 import ShowAllEntriesPerStatementOfAccountId from "./ShowAllEntriesPerStatementOfAccountId.vue";
 import SummaryOfTransactions from "./SummaryOfTransactions.vue";
+import {deleteTransactionById, updateTransactionById} from "@/services/apiService";
 
 export default {
   name: "ShowAllEntries",
@@ -64,6 +69,42 @@ export default {
     },
     calculateDifference(transactions) {
       return transactions.reduce((acc, ele) => acc + ele.amount * (ele.isExpense ? -1 : 1), 0);
+    },
+    editAllEntriesPerStatementOfAccountId(id, editedTransaction) {
+      const index = this.allEntries.findIndex(transaction => transaction._id === id);
+
+      if (index !== -1) {
+      // Update the data in the array immediately
+      this.allEntries[index] = {
+        ...this.allEntries[index],
+        ...editedTransaction
+      };
+      updateTransactionById(id, editedTransaction)
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+          this.allEntries[index] = {
+            ...this.allEntries[index],
+            ...this.allEntries[index] // Revert to the original data
+          };
+        });
+      }
+    },
+    deleteEntryOfAllEntries(id) {
+      const index = this.allEntries.findIndex(transaction => transaction._id === id);
+
+      if (index !== -1) {
+        // Use splice to remove the item at the specified index
+        this.allEntries.splice(index, 1);
+
+        deleteTransactionById(id)
+            .then(response => {
+              console.log(response);
+            })
+            .catch(error => console.log(error));
+      }
     }
   }
 };

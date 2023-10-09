@@ -9,9 +9,5 @@ export default defineConfig({
       'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     }
-  },
-  define: {
-    'process.env.VUE_APP_API_KEY': JSON.stringify(process.env.VUE_APP_API_KEY),
-    'process.env.VUE_APP_PASSWORD': JSON.stringify(process.env.PASSWORD)
   }
 });

@@ -7,9 +7,7 @@
         <button @click="checkPassword">Submit</button>
       </div>
     </div>
-    <!-- Use v-if to conditionally display content -->
     <div v-else>
-      <!-- Your existing content goes here -->
       <div class="bottom-right-circular-button">
         <OpenDialog @getNewTransaction="handleNewTransactions"/>
       </div>
@@ -39,8 +37,9 @@ import ShowAllEntries from "./components/ShowAllEntries.vue";
 import Header from "./components/Header.vue";
 import SelectTemplate from "./components/SelectTemplate.vue";
 import ExcelExporter from "./components/ExcelExporter.vue";
-import { fetchTransactions, postTransaction } from "./services/apiService";
+import {fetchTransactions, postTransaction} from "./services/apiService";
 import OpenDialog from "./components/OpenDialog.vue";
+import {getSHA256Hash} from "boring-webcrypto-sha256";
 
 export default {
   components: {
@@ -54,11 +53,10 @@ export default {
   data() {
     return {
       allTransactions: [],
-      password: "", // Store the entered password
-      isAuthorized: false, // Flag to track if the correct password is entered
-      showPasswordPrompt: false, // Flag to show/hide the password prompt
-      isLoggedIn: false,
-      correctPassword: "87Irl6CDgGvGck3yU3mEyJnFYO2ojbFDVEjhZ8RG", // Replace with your actual password
+      password: "",
+      isAuthorized: false,
+      showPasswordPrompt: false,
+      correctPasswordHash: "dfa902deb03e9b91597fe13199a9057c63444416786db91de7dcb397b9002fd6",
     };
   },
   methods: {
@@ -66,34 +64,35 @@ export default {
       // Check if the correct password is entered
       if (this.isAuthorized) {
         return postTransaction(newTransaction)
-            .then((response) => {
-              console.log(response);
-              // Fetch transactions again after a new transaction is added
-              this.fetchTransactions();
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .then((response) => {
+            console.log(response);
+            // Fetch transactions again after a new transaction is added
+            this.fetchTransactions();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     fetchTransactions() {
-      // Check if the correct password is entered
       if (this.isAuthorized) {
         return fetchTransactions()
-            .then((response) => {
-              this.allTransactions = response.data;
-            })
-            .catch((error) => {
-              console.log(error);
-            });
+          .then((response) => {
+            this.allTransactions = response.data;
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       }
     },
     promptForPassword() {
       this.showPasswordPrompt = true;
     },
-    checkPassword() {
+    async checkPassword() {
       // Check if the entered password is correct
-      if (this.password === this.correctPassword) {
+      // Hash the entered password using SHA-256
+      const enteredPasswordHash = await getSHA256Hash(this.password);
+      if (enteredPasswordHash === this.correctPasswordHash) {
         this.isAuthorized = true;
         this.showPasswordPrompt = false; // Hide the password prompt
         // Fetch transactions after the password is entered correctly

@@ -31,33 +31,29 @@ import TransactionRow from "./TransactionRow.vue";
     </tr>
     </thead>
     <tbody class="table-striped">
-    <tr v-for="(entry, index) in sortedDates" :key="entry._id">
-      <TransactionRow :entry="entry" :rowIndex="index" />
+    <tr v-for="(entry, index) in sortedTransactions" :key="entry._id">
+      <TransactionRow :entry="entry" :rowIndex="index" @edit="editTransaction" @delete="deleteTransaction"/>
     </tr>
     </tbody>
   </table>
 </template>
 
 <script>
-  import {deleteTransactionById} from "@/services/apiService";
-
   export default {
     name: "ShowAllEntriesPerStatementOfAccountId",
     props: ["allEntriesPerStatementOfAccountId"],
+    emits: ["edit", "delete"],
     data () {
       return {
         isSortedAscending: true,
-        sortKey: 'date'
+        sortKey: 'date',
       }
     },
     computed: {
-      editedEntries: function() {
-        return this.allEntriesPerStatementOfAccountId.map(entry => Object.assign({}, entry));
-      },
       getStatementOfAccountId: function() {
         return this.allEntriesPerStatementOfAccountId[0].statementOfAccountId;
       },
-      sortedDates: function() {
+      sortedTransactions: function() {
         return this.allEntriesPerStatementOfAccountId.slice().sort((a,b) => {
           if (this.sortKey === 'date') {
             if (this.isSortedAscending) {
@@ -82,13 +78,11 @@ import TransactionRow from "./TransactionRow.vue";
       }
     },
     methods: {
-      deleteTransaction(id, index) {
-        deleteTransactionById(id)
-          .then(response => {
-            console.log(response);
-            this.allEntriesPerStatementOfAccountId.splice(index, 1);
-          })
-          .catch(error => console.log(error));
+      deleteTransaction(id) {
+        this.$emit("delete", id);
+      },
+      editTransaction(id, editedTransaction) {
+        this.$emit("edit", id, editedTransaction);
       },
       formatDate(dateString) {
         // Create a Date object from the input string
@@ -113,7 +107,3 @@ import TransactionRow from "./TransactionRow.vue";
     }
   }
 </script>
-
-<style scoped>
-
-</style>

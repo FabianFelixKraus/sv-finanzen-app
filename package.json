@@ -4,7 +4,7 @@
   "description": "The backend of sv finanzen",
   "main": "index.js",
   "scripts": {
-    "startDev": "nodemon server.js",
+    "startDev": "npx better-npm-run build:dev",
     "start": "cd frontend && npm install && npm run build && cd .. && node server.js"
   },
   "author": "Fabian Kraus",
@@ -16,6 +16,15 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.0.1"
+  },
+  "betterScripts": {
+    "command": "build:dev",
+    "build:dev": {
+      "command": "cd frontend && npm run build && cd .. && nodemon server.js",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    }
   }
 }

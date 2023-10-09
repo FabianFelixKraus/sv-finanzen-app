@@ -22,7 +22,6 @@
     props: ["editIsOpened"],
     methods: {
       toggleEditTransaction(action) {
-        console.log(action);
         this.$emit('update:editIsOpened', !this.editIsOpened, action);
       }
     }

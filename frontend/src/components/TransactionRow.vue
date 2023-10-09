@@ -88,7 +88,7 @@ import EditTransaction from "./EditTransaction.vue";
     </template>
   </td>
   <td>
-    <EditTransaction :editIsOpened="isEditing" @update:editIsOpened="toggleEdit" />
+    <EditTransaction :editIsOpened="isEditing" @update:editIsOpened="toggleEdit()" />
   </td>
   <td>
     <button @click="deleteTransaction(entry._id)">
@@ -99,38 +99,31 @@ import EditTransaction from "./EditTransaction.vue";
 
 
 <script>
-import {deleteTransactionById, updateTransactionById} from "@/services/apiService";
 
 export default {
   props: {
     entry: Object,
     rowIndex: Number
   },
+  emits: ["edit", "delete"],
   data() {
     return {
       editedEntry: { ...this.entry },
       isEditing: false
     };
   },
+  computed: {
+
+  },
   methods: {
     toggleEdit() {
       if (this.isEditing) {
-        updateTransactionById(this.editedEntry._id, this.editedEntry)
-          .then(response => {
-            console.log(response);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        this.$emit("edit", this.editedEntry._id, this.editedEntry);
       }
       this.isEditing = !this.isEditing;
     },
-    deleteTransaction(id) {
-      deleteTransactionById(id)
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => console.log(error));
+    deleteTransaction() {
+      this.$emit("delete", this.editedEntry._id);
     },
     formatDate(dateString) {
       // Create a Date object from the input string
@@ -147,7 +140,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-
-</style>
