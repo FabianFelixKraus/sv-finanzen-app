@@ -2,15 +2,12 @@
   <div class="d-flex justify-content-between align-items-center start-end-content">
     <h1>{{$t("cashBook")}}</h1>
     <button class="btn-outline-primary" @click="toggleLanguage">
-      <img :src="flagIconClass" :alt="explanationText">
+      switch language
     </button>
     </div>
 </template>
 
 <script>
-import germanFlag from "@/assets/german-flag.svg";
-import britishFlag from "@/assets/british-flag.svg";
-
 export default {
   name: "Header",
   data() {
@@ -25,9 +22,6 @@ export default {
     }
   },
   computed: {
-    flagIconClass() {
-      return this.selectedLanguage === "de" ? germanFlag : britishFlag;
-    },
     explanationText() {
       if (this.selectedLanguage === "de") {
         return this.$t("germanFlagTitle");
