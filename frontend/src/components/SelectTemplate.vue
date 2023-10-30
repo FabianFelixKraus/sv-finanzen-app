@@ -15,12 +15,11 @@
     data () {
       return {
         selectedTemplate: undefined,
-        templateNames: ["card4Vend", "sumUp", "payOne", "rentStudentWERK", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "deposit", "vodafone", "empty"],
+        templateNames: ["card4Vend", "sumUp", "payOne", "rentStudentWERK", "invoice", "telekom", "cleaningService", "electricityBill", "accountMaintenanceFee", "deposit", "GC_re_home", "vodafone", "empty"],
         templates: {
           "card4Vend": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Card4Vent GmbH",
-            "statementOfAccountId": null,
             "isExpense": false,
             "location": "Waschbar",
             "amount":  null,
@@ -32,7 +31,6 @@
           "sumUp": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Sum up",
-            "statementOfAccountId": null,
             "isExpense": false,
             "location": "Gemeinschaftsraum",
             "amount":  null,
@@ -44,7 +42,6 @@
           "payOne": {
             "date": new Date().toISOString().split('T')[0],
             "description": "PAYONE GmbH",
-            "statementOfAccountId": null,
             "isExpense": false,
             "location": "Waschbar",
             "amount":  null,
@@ -56,7 +53,6 @@
           "rentStudentWERK": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Miete StudierendenWERK",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Waschbar",
             "amount":  160.00,
@@ -68,7 +64,6 @@
           "invoice": {
             "date": new Date().toISOString().split('T')[0],
             "description": "",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
             "amount":  null,
@@ -80,7 +75,6 @@
           "telekom": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Telekom",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
             "amount":  34.94,
@@ -92,7 +86,6 @@
           "cleaningService": {
             "date": new Date().toISOString().split('T')[0],
             "description": "3B Dienstleistungen",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
             "amount":  32.33,
@@ -104,7 +97,6 @@
           "electricityBill": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Naturstromhandel GmbH",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Waschbar",
             "amount":  null,
@@ -116,7 +108,6 @@
           "accountMaintenanceFee": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Kontoführungsgebühren",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Sonstiges",
             "amount":  30.35,
@@ -128,7 +119,6 @@
           "deposit": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Kaution ",
-            "statementOfAccountId": null,
             "isExpense": false,
             "location": "Gemeinschaftsraum",
             "amount":  100.00,
@@ -140,7 +130,6 @@
           "flaschenport": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Erstattung Getränkelieferung Flaschenpost SE",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Gemeinschaftsraum",
             "amount":  null,
@@ -152,10 +141,20 @@
           "vodafone": {
             "date": new Date().toISOString().split('T')[0],
             "description": "Vodafone GmbH",
-            "statementOfAccountId": null,
             "isExpense": true,
             "location": "Waschbar",
             "amount":  26.73,
+            "account": "Commerzbank",
+            "taxClass": "MwSt. voll",
+            "taxGroup": "WBA",
+            "taxRate": 19
+          },
+          "GC_re_home": {
+            "date": new Date().toISOString().split('T')[0],
+            "description": "GC re homee GmbH Abschlag (Strom) <Monat>",
+            "isExpense": true,
+            "location": "Waschbar",
+            "amount":  184.00,
             "account": "Commerzbank",
             "taxClass": "MwSt. voll",
             "taxGroup": "WBA",

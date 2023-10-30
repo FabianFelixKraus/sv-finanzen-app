@@ -1,4 +1,5 @@
 {
+  "GC_re_home": "Waschbar Electricity",
   "account": "Account",
   "accountMaintenanceFee": "Account Maintenance Fee",
   "addNewTransaction": "Add new transaction",
@@ -8,6 +9,7 @@
   "balanceCash": "Balance Cash",
   "balanceCommerzbank": "Balance Commerzbank",
   "card4Vend": "Card4Vend",
+  "cashBook": "Cash book",
   "changeOfBalance": "Change",
   "cleaningService": "3B Dienstleistungen",
   "close": "Close",
@@ -36,7 +38,6 @@
   "result": "Result",
   "save": "Save",
   "selectTemplate": "select template",
-  "cashBook": "Cash book",
   "startBalance": "Balance at the beginning of semester",
   "statementOfAccountId": "K-No",
   "statementOfAccountIdDescription": "Statement of Account Number",

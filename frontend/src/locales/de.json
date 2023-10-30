@@ -1,4 +1,5 @@
 {
+  "GC_re_home": "Waschbar Strom",
   "account": "Konto",
   "accountMaintenanceFee": "Kontoführungsgebühren",
   "addNewTransaction": "Neue Transaktion hinzufügen",
@@ -8,6 +9,7 @@
   "balanceCash": "Kontostand Kasse, bar",
   "balanceCommerzbank": "Kontostand Commerbank",
   "card4Vend": "Card4Vend",
+  "cashBook": "Kassenbuch",
   "changeOfBalance": "Veränderung",
   "cleaningService": "3B Dienstleistungen",
   "close": "Schließen",
@@ -37,7 +39,6 @@
   "result": "Ergebnis",
   "save": "Speichern",
   "selectTemplate": "Vorlage auswählen",
-  "cashBook": "Kassenbuch",
   "startBalance": "Kontostand zu Beginn des Semesters",
   "statementOfAccountId": "K-Nr",
   "statementOfAccountIdDescription": "Kontoauszugsnummer",
