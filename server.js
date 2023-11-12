@@ -12,7 +12,7 @@ mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true })
 app.use(express.json());
 
 
-const transactionsRouter = require("./routes/transactions");
+const transactionsRouter = require("./routes/transactions2");
 app.use("/transactions", transactionsRouter);
 
 // Serve the static frontend files from the /frontend/dist directory
