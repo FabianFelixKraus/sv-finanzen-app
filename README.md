@@ -7,7 +7,7 @@ This project is structured as a monorepo with two parts: *frontend* and *backend
 ### 👉Frontend
 The frontend is based on [Vue 3](https://v3.vuejs.org/) and [Vite](https://vitejs.dev/).
 It is located in the `frontend` folder.
-There are two configurations for the frontend: `dev`, `prod` and `preview`.
+There are three configurations for the frontend: `dev`, `prod` and `preview`.
 The frontend supports 🇺🇸English & 🇩🇪German language.
 
 ### 👈Backend
@@ -46,7 +46,7 @@ npm run startDev
 The Application is deployed on Microsoft Azure. The deployment is done automatically when pushing to the main branch utilizing GitHub Actions.
 
 ## 🙌Contributing
-Feel free to contribute to this project. Just fork the repository and create a pull request.
+Feel free to contribute to this project. Just clone or fork the repository and create a pull request.
 
 ## 📝License
 
